@@ -1,9 +1,10 @@
 ---
-export interface Props {
-	title: string;
-}
-
-const { title } = Astro.props;
+// export interface Props {
+// 	title: string;
+// }
+import type {BodyProps as Props} from "@interfaces/index"
+import '@styles/index.css'
+const { title }:Props = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -19,7 +20,7 @@ const { title } = Astro.props;
 		<slot />
 	</body>
 </html>
-<style is:global>
+<!-- <style is:global>
 	*{
 		margin:0;
 		padding:0;
@@ -36,9 +37,4 @@ const { title } = Astro.props;
 	}
 
 	
-  /** TAILWIND **/
-  @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
-
-</style>
+</style> -->
