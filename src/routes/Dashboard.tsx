@@ -1,11 +1,10 @@
 import Header from "@components/Header";
-import Logo from "@components/Logo";
 import Notes from "@components/Notes";
 import Sidebar from "@components/Sidebar";
 
 const Dashboard = () => {
   return (
-    <section className="flex relative ">
+    <section className="flex">
       <Sidebar />
       <div className="relative flex-1 px-8 ">
         <Header />

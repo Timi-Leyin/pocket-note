@@ -6,7 +6,7 @@
 :root {
     --accent: 124, 58, 237;
     --font: 'Georama';
-    --accent-gradient: linear-gradient(45deg, rgb(var(--accent)), #da62c4 30%, white 60%);
+    --accent-gradient: linear-gradient(45deg, rgb(var(--accent)), #da6262 30%, rgb(78, 214, 60) 60%);
 }
 
 html {
@@ -19,7 +19,16 @@ html {
 @tailwind components;
 @tailwind utilities;
 @layer utilities {
-    .flex-center {
+.flex-center {
         @apply flex justify-center items-center
     }
+.bg-gradient-accent {
+    background: var(--accent-gradient) no-repeat;
+    transition: 0.5s ease;
+    background-position: 500px
+}
+
+.bg-gradient-accent:is(:hover, :focus) {
+    background-position: 0
+}
 }
