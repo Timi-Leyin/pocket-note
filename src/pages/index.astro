@@ -1,14 +1,7 @@
 ---
 import Body from '@layouts/Body.astro';
-import Homepage from '@routes/Homepage';
 import Dashboard from '@routes/Dashboard';
-
 ---
-
 <Body title="Docket">
-	<Dashboard />
+	<Dashboard client:load />
 </Body>
-
-<style>
-
-</style>
