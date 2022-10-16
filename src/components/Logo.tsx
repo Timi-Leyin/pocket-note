@@ -1,4 +1,13 @@
+import { Notepad2 } from "iconsax-react";
+
 const Logo = () => {
-  return <h2 className="font-bold text-3xl">Logo</h2>;
+  return (
+    <h2 className="font-bold text-2xl flex-center gap-1">
+      <div className="p-2 bg-white rounded-full text-black">
+        <Notepad2 />
+      </div>{" "}
+      Docket
+    </h2>
+  );
 };
 export default Logo;
