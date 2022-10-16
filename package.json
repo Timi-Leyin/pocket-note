@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@astrojs/react": "^1.2.0",
+    "@supabase/supabase-js": "^2.0.0",
     "astro": "^1.4.7",
     "autoprefixer": "^10.4.12",
     "iconsax-react": "^0.0.8",
