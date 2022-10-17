@@ -6,7 +6,7 @@ const Logo = () => {
       <div className="p-2 bg-white rounded-full text-black">
         <Notepad2 />
       </div>{" "}
-      Docket
+      Pocket
     </h2>
   );
 };
