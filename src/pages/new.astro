@@ -1,8 +1,15 @@
 ---
 import Body from "@layouts/Body.astro";
-
+import Header from '@components/Header';
+import Tools from '@components/Tools';
+import Editor from "@components/Editor";
 ---
 
 <Body title="New Pocket">
-    <h1>Add New</h1>
+    <!-- editor header -->
+
+    <div class="bg-gray-900 px-8"><Header title="TestTitle" /></div>
+    <!-- editor heder -->
+    <Tools client:load />
+  <Editor />
 </Body>
