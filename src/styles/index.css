@@ -18,6 +18,21 @@ html {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@layer components {
+    [contenteditable="true"] {
+        border: none;
+        outline: none;
+        @apply p-1
+    }
+
+    .editor-tools button {
+        @apply p-1 w-[40px] h-[40px] flex-center rounded-lg transition-all
+    }
+
+    .editor-tools button:hover {
+        @apply bg-gray-900
+    }
+}
 @layer utilities {
 .flex-center {
         @apply flex justify-center items-center
