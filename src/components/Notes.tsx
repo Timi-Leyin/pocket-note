@@ -1,6 +1,6 @@
 import Note from "./Note";
 
-import { supabase } from "@supabase/index";
+import { supabase } from "@/supabase/index";
 let { data: notes, error } = await supabase.from("notes").select("*");
 
 const Notes = () => {

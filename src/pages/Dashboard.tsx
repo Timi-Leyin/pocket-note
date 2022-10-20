@@ -1,6 +1,6 @@
-import Header from "@components/Header";
-import Notes from "@components/Notes";
-import Sidebar from "@components/Sidebar";
+import Header from "@/components/Header";
+import Notes from "@/components/Notes";
+import Sidebar from "@/components/Sidebar";
 
 const Dashboard = () => {
   return (

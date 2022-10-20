@@ -7,3 +7,10 @@ export interface BodyProps {
 export interface HeaderProps {
   title?: string;
 }
+
+export interface NoteProps {
+  id: number;
+  name: string;
+  note: string;
+  created_at: string;
+}

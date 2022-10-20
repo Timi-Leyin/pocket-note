@@ -1,4 +1,4 @@
-import { HeaderProps } from "@interfaces/index";
+import { HeaderProps } from "@/interfaces/index";
 import { Google, SearchNormal1, TicketDiscount } from "iconsax-react";
 import Search from "./Search";
 
