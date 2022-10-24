@@ -18,6 +18,7 @@
     "vite": "^3.1.0"
   },
   "dependencies": {
+    "@fontsource/manrope": "^4.5.12",
     "@supabase/supabase-js": "^2.0.0",
     "@types/node": "^18.11.3",
     "autoprefixer": "^10.4.12",
