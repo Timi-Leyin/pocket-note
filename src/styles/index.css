@@ -10,7 +10,7 @@
 }
 
 html {
-    font-family: var(--font), sans-serif;
+    font-family:"Manrope", var(--font), sans-serif !important;
     scroll-behaviour: smooth
 }
 
