@@ -1,6 +1,7 @@
 import Note from "./Note";
 import { getMyNotes } from "@/actions/notes";
 import {useLoader} from "@/hooks/index";
+import {CloudRemove} from "iconsax-react"
 import Loading from '@/components/Loading'
 import { Key } from "react";
 import { NoteProps } from "../interfaces";
@@ -20,10 +21,12 @@ const Notes = () => {
           <Note data={note} />
             </div>
           ))}
-          {error && (
-            <p>{error}</p>
-          )}
       </div>
+          {error && (
+            <div className="">
+              <p className="flex items-center gap-1 opacity-70  pb-8 font-bold"><CloudRemove />{"Notes are not available currently."}</p>
+            </div>
+          )}
       <h2 className="text-4xl font-bold my-5">Shared Notes</h2>
     </section>
   );
