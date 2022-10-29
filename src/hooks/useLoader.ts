@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 
 /**
  ** @params arg
@@ -11,7 +11,8 @@ const useLoader =  (arg: useLoaderT) => {
   const [error, setError ] = useState("");
   const [state, setState] = useState<any>();
 
-  arg.then((res)=>{
+  useEffect(()=>{
+    arg.then((res)=>{
       const [err, data] = res;
       
     if(err) { 
@@ -23,6 +24,7 @@ const useLoader =  (arg: useLoaderT) => {
     }
     setIsLoading(false)
   })
+  },[])
 
   return {
       loading:isLoading,
