@@ -4,7 +4,7 @@ import {useLoader} from "@/hooks/index";
 import {CloudRemove} from "iconsax-react"
 import Loading from '@/components/Loading'
 import { Key } from "react";
-import { NoteProps } from "../interfaces";
+import { NoteProps } from "@/interfaces/index";
 
 const Notes = () => {
   const {loading, error, data} = useLoader(getMyNotes())
