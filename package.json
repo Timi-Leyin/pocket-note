@@ -20,11 +20,12 @@
   "dependencies": {
     "@fontsource/manrope": "^4.5.12",
     "@supabase/supabase-js": "^2.0.0",
+    "@types/crypto-js": "^4.1.1",
     "@types/node": "^18.11.3",
     "@types/uuid": "^8.3.4",
     "autoprefixer": "^10.4.12",
+    "crypto-js": "^4.1.1",
     "iconsax-react": "^0.0.8",
-    "jsonwebtoken": "^8.5.1",
     "postcss": "^8.4.18",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
