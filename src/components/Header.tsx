@@ -1,8 +1,13 @@
 import { HeaderProps } from "@/interfaces/index";
 import { Google, SearchNormal1, TicketDiscount } from "iconsax-react";
 import Search from "./Search";
+import {signin} from "@/actions/auth"
+import { useLoader } from "@/hooks/index";
+import { currentUser } from "@/actions/user";
 
 const Header = ({ title }: HeaderProps) => {
+  const {loading, error, data} = useLoader(currentUser())
+  console.log(error, loading, data)
   return (
     <header className="flex items-center px-2 justify-between p-3 w-full">
       {/* search */}
@@ -17,7 +22,7 @@ const Header = ({ title }: HeaderProps) => {
       )}
 
       {/*  */}
-      <button className="p-2 bg-red-500 px-7 rounded-full gap-3 flex-center text-xs">
+      <button className="p-2 bg-red-500 px-7 rounded-full gap-3 flex-center text-xs" onClick={()=> signin()}>
         Sign in <Google variant="Bold" size="16px" />
       </button>
     </header>
