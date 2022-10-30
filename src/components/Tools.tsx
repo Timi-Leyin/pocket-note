@@ -11,7 +11,7 @@ import {
   NoteText,
 } from "iconsax-react";
 
-const Tools = () => {
+const Tools = ({onSave}:{onSave:()=> void}) => {
   return (
     <div>
       <header className="bg-gray-800 py-2 items-center px-10 flex justify-between">
@@ -53,7 +53,11 @@ const Tools = () => {
 
         <div className="">
           <span className="text-xs mx-1">Updated 3 days ago</span>
-          <button className="p-2 text-xs px-7 bg-green-700 rounded-md">
+          <button className="p-2 text-xs px-7 bg-green-700 rounded-md" onClick={()=>{
+            console.log("Saving...")
+            onSave()
+            console.log("Saved!!!")
+          }}>
             Save Note
           </button>
         </div>

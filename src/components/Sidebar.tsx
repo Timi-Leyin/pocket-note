@@ -6,7 +6,7 @@ const Sidebar = () => {
     <aside className="p-4 flex items-center gap-3 flex-col h-screen text-center">
       <Logo />
 
-      <Link to="/notes/3d4t4tggg45-note-name">
+      <Link to="/notes/new">
         <button className="p-2 my-3 rounded-full bg-white text-black w-[50px] h-[50px] flex-center">
           <Add />
         </button>

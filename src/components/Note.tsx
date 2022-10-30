@@ -3,11 +3,14 @@ import { NoteProps } from "@/interfaces/index";
 import { date } from "@/utils/index";
 
 const Note = ({ data }:{data:NoteProps}) => {
+  console.log(data)
+  const element= document.createElement("p")
+    element.innerHTML=atob(data.note)
   return (
     <button className="note outline-none relative max-w-[300px] h-[300px] text-left p-1 rounded-lg bg-gradient-accent text-black">
       <div className="bg-pink-500 p-5 h-full rounded-[inherit] flex flex-col justify-between ">
         <div className="content-highlight font-bold pt-2 text-xl">
-          {data.note}
+          <span>{element.textContent}</span>
           {/* {` The beginning of screenless design:
         UI jobs to be taken
         over by solution Architect.`} */}

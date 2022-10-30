@@ -6,9 +6,8 @@ import { useLoader } from "@/hooks/index";
 import { currentUser } from "@/actions/user";
 import Loading from "./Loading";
 
-const Header = ({ title }: HeaderProps) => {
+const Header = ({ title, onTitleChange }: HeaderProps) => {
   const { loading, error, data } = useLoader(currentUser());
-  console.log(error, loading, data);
   return (
     <header className="flex items-center px-2 justify-between p-3 w-full">
       {/* search */}
@@ -16,9 +15,7 @@ const Header = ({ title }: HeaderProps) => {
       {title && (
         <h3 className="font-bold text-xl flex-center gap-1">
           <TicketDiscount />{" "}
-          <span className="opacity-50 focus:opacity-100" contentEditable>
-            Pocket Title
-          </span>
+          <input className="opacity-50 bg-transparent outline-none border-none focus:opacity-100" onChange={onTitleChange} value={title} />
         </h3>
       )}
 
