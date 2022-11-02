@@ -6,11 +6,12 @@ import Tools from "./Tools";
 const Editor = () => {
   const [title, setTitle] = useState("Untitled")
   const note_editor = useRef<HTMLDivElement>(null!)
-  const onSaveDraft = ()=>{
-    saveDraft({
+  const onSaveDraft = () :any =>{
+   return saveDraft({
       title,
       ref:note_editor,
-      user_id:"c599e74e-40ce-41f5-9b0f-ce88e41430b6"
+      user_id:atob(localStorage.getItem("sid") as string)
+      // user_id:"c599e74e-40ce-41f5-9b0f-ce88e41430b6"
     })
   }
 
@@ -27,6 +28,7 @@ const Editor = () => {
         </div>
       </div>
       <div className="editor-footer"></div>
+          
     </div>
   );
 };

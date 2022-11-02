@@ -1,4 +1,5 @@
 import format from "@/utils/format";
+import { useState } from "react";
 import {
   TextBold,
   TextItalic,
@@ -11,7 +12,11 @@ import {
   NoteText,
 } from "iconsax-react";
 
-const Tools = ({onSave}:{onSave:()=> void}) => {
+const Tools = ({ onSave }: { onSave: () => any }) => {
+  const [state, setState] = useState<{
+    loading?: boolean;
+    error?: boolean;
+  }>({});
   return (
     <div>
       <header className="bg-gray-800 py-2 items-center px-10 flex justify-between">
@@ -52,13 +57,22 @@ const Tools = ({onSave}:{onSave:()=> void}) => {
         </div>
 
         <div className="">
-          <span className="text-xs mx-1">Updated 3 days ago</span>
-          <button className="p-2 text-xs px-7 bg-green-700 rounded-md" onClick={()=>{
-            console.log("Saving...")
-            onSave()
-            console.log("Saved!!!")
-          }}>
-            Save Note
+          <span className="text-xs mx-1">Updated {"just now"}</span>
+          <button
+            className="p-2 text-xs px-7 bg-green-700 rounded-md"
+            onClick={async () => {
+              setState({ loading: true, error: false });
+              const res = await onSave();
+              if (res[0]) setState({ loading: false, error: true });
+              if (res[1]) setState({ loading: false, error: false });
+              console.clear();
+            }}
+          >
+            {state.loading
+              ? "Saving"
+              : state.error
+              ? "Failed to save"
+              : "Save Note"}
           </button>
         </div>
       </header>
