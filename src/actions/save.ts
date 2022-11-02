@@ -13,12 +13,12 @@ export const saveDraft = async({title,type="html",ref,user_id}:SaveProps)=>{
         // remove script tag
         const html =btoa(ref.current.innerHTML);
 
-        await supabase.from("notes").insert([{
-            title,
-            type,
-            note:html,
-            user_id
-        }])
-        return 
+          const response = await supabase.from("notes").insert([{
+                title,
+                type,
+                note:html,
+                user_id
+            }])
+          return [response.error,response.data] 
     }
 }
