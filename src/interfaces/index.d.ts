@@ -8,7 +8,7 @@ export interface BodyProps {
 export interface SaveProps {
   title:string;
   type?: "html"
-  user_id:string;
+  user_id?:string;
   ref:MutableRefObject<HTMLDivElement>
 }
 
