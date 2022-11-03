@@ -7,7 +7,8 @@ import { currentUser } from "@/actions/user";
 import Loading from "./Loading";
 
 const Header = ({ title, onTitleChange }: HeaderProps) => {
-  const { loading, error, data } = useLoader(currentUser());
+  const { loading, data } = useLoader(currentUser());
+  const user = data?.user_metadata
   return (
     <header className="flex items-center px-2 justify-between p-3 w-full">
       {/* search */}
@@ -23,13 +24,13 @@ const Header = ({ title, onTitleChange }: HeaderProps) => {
       <div className="">
         {loading ? (
           <Loading />
-        ) : data ? (
+        ) : user ? (
           <div className="flex gap-1">
             {/* show avatar if loading = false && data exists */}
             <img
-              src={data?.avatar_url}
+              src={user?.avatar_url}
               className="w-[50px] h-[50px] ring-2 select-none pointer-events-none ring-gray-100 rounded-full object-cover"
-              alt={data?.email}
+              alt={user?.email}
             />
           </div>
         ) : (

@@ -68,11 +68,9 @@ const Tools = ({ onSave }: { onSave: () => any }) => {
               console.clear();
             }}
           >
-            {state.loading
-              ? "Saving"
-              : state.error
-              ? "Failed to save"
-              : "Save Note"}
+            {state.loading ? "Saving...": !state.error
+              ? "Note Saved" : "Save Note"
+            }
           </button>
         </div>
       </header>
