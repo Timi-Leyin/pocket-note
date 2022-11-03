@@ -12,7 +12,7 @@ import {
   NoteText,
 } from "iconsax-react";
 
-const Tools = ({ onSave }: { onSave: () => any }) => {
+const Tools = ({ onSave,updated }: { onSave: () => any, updated:string }) => {
   const [state, setState] = useState<{
     loading?: boolean;
     error?: boolean;
@@ -57,7 +57,7 @@ const Tools = ({ onSave }: { onSave: () => any }) => {
         </div>
 
         <div className="">
-          <span className="text-xs mx-1">Updated {"just now"}</span>
+          <span className="text-xs mx-1">Updated {updated} </span>
           <button
             className="p-2 text-xs px-7 bg-green-700 rounded-md"
             onClick={async () => {

@@ -16,7 +16,7 @@ const Header = ({ title, onTitleChange }: HeaderProps) => {
       {title && (
         <h3 className="font-bold text-xl flex-center gap-1">
           <TicketDiscount />{" "}
-          <input className="opacity-50 bg-transparent outline-none border-none focus:opacity-100" onChange={onTitleChange} value={title} />
+          <input className="opacity-50 bg-transparent outline-none border-none p-1 focus:opacity-100 w-full" placeholder="***" onChange={onTitleChange} value={title} />
         </h3>
       )}
 
