@@ -3,7 +3,7 @@ import { NoteProps } from "@/interfaces/index";
 import { date } from "@/utils/index";
 
 const Note = ({ data }:{data:NoteProps}) => {
-  console.log(data)
+  // console.log(data)
   const element= document.createElement("p")
     element.innerHTML=atob(data.note)
   return (
