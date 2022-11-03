@@ -3,7 +3,7 @@ import {supabase} from "@/supabase/index"
 // import { Html3 } from "iconsax-react";
 import type { SaveProps } from "../interfaces"
 // import jwt from "jsonwebtoken"
-export const save = async({title,type="html",ref,user_id}:SaveProps)=>{
+export const save = async({title,type="html",ref,user_id,uuid}:SaveProps)=>{
   if(ref.current){
     // remove script tag
     const html =btoa(ref.current.innerHTML);
@@ -12,7 +12,8 @@ export const save = async({title,type="html",ref,user_id}:SaveProps)=>{
             title,
             type,
             note:html,
-            user_id
+            user_id,
+            uuid
         }])
       return [response.error,response.data] 
 }
@@ -20,14 +21,14 @@ export const save = async({title,type="html",ref,user_id}:SaveProps)=>{
 
 
 // draft - offline
-export const saveDraft = async({title,type="html",ref}:SaveProps)=>{
+export const saveDraft = async({title,type="html",ref, uuid}:SaveProps)=>{
     if(ref.current){
         // remove script tag
         const html =btoa(ref.current.innerHTML);
-        localStorage.setItem("id:draft",JSON.stringify({
+        localStorage.setItem(uuid,JSON.stringify({
           title,
           type,
-          html
+          note:html
         }))
     }
 }
