@@ -20,7 +20,12 @@ export interface HeaderProps {
 
 export interface NoteProps {
   id: number;
-  name: string;
   note: string;
+  title:string;
+  shared:string[];
+  type:string;
+  user_id:string;
+  uuid:string;
+  updated_at:string;
   created_at: string;
 }
