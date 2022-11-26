@@ -1,95 +1,133 @@
-import {saveDraft, save} from "@/actions/save"
-import { useEffect, useRef, useState} from "react"
+import { saveDraft, save } from "@/actions/save";
+import { useEffect, useRef, useState } from "react";
 import Header from "./Header";
 import Tools from "./Tools";
-import * as uuid from "uuid"
+import * as uuid from "uuid";
 import { useParams } from "react-router-dom";
 import { currentUser } from "@/actions/user";
 import { getMyNotes, getSharedNotes } from "@/actions/notes";
 import { useLoader } from "../hooks";
-import { NoteProps } from "../interfaces";
+import { Action, NoteProps } from "../interfaces";
+import { date } from "../utils";
+import Loading from "./Loading";
 
 // ---------------------------
-const _id=uuid.v1()
-const current = await currentUser()
+const _id = uuid.v1();
+const current = await currentUser();
 // ---------------------------
 
 const Editor = () => {
-  const {id} = useParams();
-  
-  
-  const mine = useLoader(getMyNotes())
-  const shared = useLoader(getSharedNotes())
-  let mock_title=""
-  const [title, setTitle] = useState("Untitled")
-  const note_editor = useRef<HTMLDivElement>(null!)
-  const [last_updated, setlastUpdated]= useState(new Date().toLocaleTimeString())
-  const [action,setAction]= useState<"read"|"new">()
-  const [currentNote,setCurrentNote]= useState<NoteProps>()
-  const param_arr = id?.split("=")
+  const { id } = useParams();
 
-  const onSaveDraft=()=>{
-
+  const mine = useLoader(getMyNotes());
+  const shared = useLoader(getSharedNotes());
+  let mock_title = "Untitled";
+  const note_editor = useRef<HTMLDivElement>(null!);
+  const [isLoading, setIsLoading] = useState(true);
+  const [last_updated, setlastUpdated] = useState("");
+  const [action, setAction] = useState<Action>("read");
+  const [currentNote, setCurrentNote] = useState<NoteProps>();
+  const param_arr = id?.split("=");
+  const [title, setTitle] = useState((param_arr && param_arr[0]) || mock_title);
+  console.log(param_arr);
+  const onSaveDraft = () => {
     return saveDraft({
-      uuid:_id,
+      uuid: _id,
       title,
-      ref:note_editor,
-    })
-  }
+      action,
+      ref: note_editor,
+    });
+  };
 
-  const onSave = () :any =>{
-   return save({
-      title,
-      ref:note_editor,
-      uuid:_id,
-      user_id:current[1].id || ""
+  const onSave = (): any => {
+    return save({
+      title: title || mock_title,
+      action,
+      ref: note_editor,
+      uuid: action !== "new" ? (param_arr && param_arr[1]) || "" : _id,
+      user_id: (current[1] && current[1].id) || "",
       // user_id:"c599e74e-40ce-41f5-9b0f-ce88e41430b6"
-    })
-  }
-  useEffect(()=>{
-   if(action === "read" && param_arr && mine.data && shared.data){
-  const myN=  mine.data.filter((n:NoteProps)=> n.id == Number(param_arr[3]) && n.uuid == param_arr[1])
-  const sharedN=  shared.data.filter((n:NoteProps)=> n.id == Number(param_arr[3]) && n.uuid == param_arr[1])
-   const availableNote = [...myN, ...sharedN]
-   setCurrentNote(availableNote[0])
-}
-  },[mine, shared])
+    });
+  };
+  useEffect(() => {
+    if (action === "read" && param_arr && mine.data && shared.data) {
+      const myN = mine.data.filter(
+        (n: NoteProps) => n.id == Number(param_arr[3]) && n.uuid == param_arr[1]
+      );
+      const sharedN = shared.data.filter(
+        (n: NoteProps) => n.id == Number(param_arr[3]) && n.uuid == param_arr[1]
+      );
+      const availableNote = [...myN, ...sharedN];
+      setCurrentNote(availableNote[0]);
+    }
+  }, [mine, shared]);
 
-  useEffect(()=>{
+  useEffect(() => {
     // console.clear()
-    if(param_arr && param_arr[0]==="new" && !param_arr[3]) setAction("new") 
-    if(param_arr && param_arr[3]) setAction("read") 
+    if (param_arr && param_arr.length == 1) setAction("new");
+    if (param_arr && param_arr[3]) setAction("read");
+    if (
+      param_arr &&
+      param_arr[3] &&
+      current[1] &&
+      current[1].id === currentNote?.user_id
+    ) setAction("edit");
     // 0 = title
     // 1 =uuid
     // 2 = "id"
     // 3 = id -> value
-  if(action === "new"){
-    // new file
-    console.log("NEW FILE")
-  }
+    if (action === "new") {
+      // new file
+      console.log("NEW FILE");
+    }
+    console.log(action);
 
-  if(action === "read"){
-    //read file
-    console.log("READ FILE")
-    console.log(currentNote)
-  }
-  },[action,currentNote])
+    if (action === "read") {
+      //read file
+      console.log("READ FILE");
+      console.log(currentNote);
+      console.log(mine);
+      currentNote && setlastUpdated(date(currentNote.updated_at));
+      setIsLoading(false);
+    }
+  }, [currentNote,action]);
 
   // save draft
   return (
     <div className="">
-      
       <div className="bg-gray-900 px-8">
-        <Header title={action == "read"?(param_arr && param_arr[0]):title} onTitleChange={(e)=> setTitle(e.target.value) } />
+        <Header
+          isEditable={true}
+          title={action == "read" ? param_arr && param_arr[0] : title}
+          onTitleChange={(e) => setTitle(e.target.value)}
+          action={action}
+        />
       </div>
-      <Tools onSave={onSave} updated={last_updated}/>
+      <Tools onSave={onSave} updated={last_updated} action={action} />
       <div className="editor-wrapper">
         <div className="text-editor px-12 py-6">
-          <span ref={note_editor} contentEditable="true"></span>
+          {isLoading ? (
+            <Loading />
+          ) : action == "new" ? (
+            <span ref={note_editor} contentEditable={true}>
+              Edit this Page
+            </span>
+          ) : (
+            ""
+          )}
+
+          {currentNote && action != "new" && !isLoading ? (
+            <span
+              ref={note_editor}
+              dangerouslySetInnerHTML={{
+                __html: atob(currentNote?.note as string),
+              }}
+              contentEditable={action != "read" ? true : false}
+            ></span>
+          ):<span>Failed to load note</span>}
         </div>
       </div>
       <div className="editor-footer"></div>
-          
     </div>
   );
 };
