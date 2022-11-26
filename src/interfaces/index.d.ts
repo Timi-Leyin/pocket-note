@@ -4,10 +4,11 @@ export interface BodyProps {
   title: string;
   children?: any;
 }
-
+export type Action = "edit" | "new" | "read"
 export interface SaveProps {
   title:string;
   type?: "html";
+  action:Action;
   uuid:string;
   user_id?:string;
   ref:MutableRefObject<HTMLDivElement>
@@ -16,6 +17,8 @@ export interface SaveProps {
 
 export interface HeaderProps {
   title?: string;
+  isEditable?:boolean ;
+  action:Action;
   onTitleChange?:(e:SyntheticBEvent)=> void
 }
 
