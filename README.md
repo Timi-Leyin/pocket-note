@@ -25,6 +25,10 @@ Inside of your Vite project, you'll see the following folders and files:
 └── vite.config.js
 └── package.json
 ```
+## 🧑‍🚀 Roadmap
+    - Sanitize html inputs
+    - What happens when user save new notes
+    - delete note
 
 ## 🧞 Commands
 
