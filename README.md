@@ -8,7 +8,7 @@
 
 ## 🚀 Project Structure
 
-Inside of your Vite project, you'll see the following folders and files:
+Inside of your the project, you'll see the following folders and files:
 
 ```
 /
@@ -26,9 +26,15 @@ Inside of your Vite project, you'll see the following folders and files:
 └── package.json
 ```
 ## 🧑‍🚀 Roadmap
-    - Sanitize html inputs
-    - What happens when user save new notes
-    - delete note
+    - fix: Sanitize html inputs []
+    - fix: new note
+    - feat: redirect to note edit url when user newly asve a note
+    - feat: shared notes
+    - feat: delete note
+    - fix: responsiveness
+    - style: progress loader
+
+
 
 ## 🧞 Commands
 
@@ -41,8 +47,8 @@ All commands are run from the root of the project, from a terminal:
 | `yarn build`        | Build your production site to `./dist/`            |
 | `yarn preview`      | Preview your build locally, before deploying       |
 | `npm run vite ...`    | Run CLI commands like `vite preview` |
-| `npm run vite --help` | Get help using the Astro CLI                       |
+| `npm run vite --help` | Get help using the vite CLI                       |
 
 ## 👀 Want to learn more?
 
-Feel free to check [our documentation](https://) or jump into our [Discord server](https://).
+Feel free to contribute [Contribution guide](https://) or view on [Openfork](https://).
