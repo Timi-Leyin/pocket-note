@@ -6,19 +6,20 @@ import { useLoader } from "@/hooks/index";
 import { currentUser } from "@/actions/user";
 import Loading from "./Loading";
 
-const Header = ({ title, onTitleChange }: HeaderProps) => {
+const Header = ({ title, onTitleChange,action, isEditable }: HeaderProps) => {
   const { loading, data } = useLoader(currentUser());
   const user = data?.user_metadata
+  // console.log(user)
   return (
     <header className="flex items-center px-2 justify-between p-3 w-full">
       {/* search */}
       <Search />
-      {title && (
-        <h3 className="font-bold text-xl flex-center gap-1">
-          <TicketDiscount />{" "}
-          <input className="opacity-50 bg-transparent outline-none border-none p-1 focus:opacity-100 w-full" placeholder="***" onChange={onTitleChange} value={title} />
-        </h3>
-      )}
+      { isEditable && (
+        <div className="font-bold text-xl flex-center gap-1">
+        <TicketDiscount />
+      <input type="text" className="opacity-50 bg-transparent outline-none border-none p-1 focus:opacity-100" placeholder="Untitled" onChange={onTitleChange} value={title} disabled={action === "read"} />
+          </div>
+       )}
 
       {/*  display loading*/}
       <div className="">
@@ -30,7 +31,7 @@ const Header = ({ title, onTitleChange }: HeaderProps) => {
             <img
               src={user?.avatar_url}
               className="w-[50px] h-[50px] ring-2 select-none pointer-events-none ring-gray-100 rounded-full object-cover"
-              alt={user?.email}
+              alt={user?.full_name}
             />
           </div>
         ) : (
