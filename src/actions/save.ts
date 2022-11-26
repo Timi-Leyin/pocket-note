@@ -3,19 +3,28 @@ import {supabase} from "@/supabase/index"
 // import { Html3 } from "iconsax-react";
 import type { SaveProps } from "../interfaces"
 // import jwt from "jsonwebtoken"
-export const save = async({title,type="html",ref,user_id,uuid}:SaveProps)=>{
+export const save = async({title,type="html",ref,user_id,uuid, action}:SaveProps)=>{
   if(ref.current){
     // remove script tag
     const html =btoa(ref.current.innerHTML);
-
+    console.log(action, uuid)
+    if(action === "edit"){
+     const res = await supabase.from("notes").update({
+        title,
+        note:html,
+       }).eq("uuid",uuid)
+       console.log(res)
+       return [res.error,res.data] 
+    }else{
       const response = await supabase.from("notes").insert([{
-            title,
-            type,
-            note:html,
-            user_id,
-            uuid
-        }])
-      return [response.error,response.data] 
+        title,
+        type,
+        note:html,
+        user_id,
+        uuid
+    }])
+    return [response.error,response.data] 
+    }
 }
 }
 
