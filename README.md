@@ -1,7 +1,12 @@
 # Welcome to ![](./src/assets/logo.svg) [Pocket-note](pocketnote.netlify.app)
 
 
-> 🧑‍🚀 **Pocket note?** is a pratice side bla bla bla
+> 🧑‍🚀 **Pocket note?** is a new app that allows you to take notes and store them in your pocket 😅(i mean your phone) . 
+It's simple, convenient, and easy to use. 
+
+> 🤯 One of the best features of Pocketnote is the ability to share your notes with others. 
+Whether you're collaborating on a project or just want to share a funny note with a friend,
+ Pocketnote makes it easy to do.
 
 ![screenshot](./public/preview.png)
 
@@ -28,7 +33,7 @@ Inside of your the project, you'll see the following folders and files:
 ## 🧑‍🚀 Roadmap
     - fix: Sanitize html inputs []
     - fix: new note
-    - feat: redirect to note edit url when user newly asve a note
+    - feat: redirect to note edit url when user newly save a note
     - feat: shared notes
     - feat: delete note
     - fix: responsiveness
