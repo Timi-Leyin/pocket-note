@@ -1,4 +1,4 @@
-# Welcome to ![](./src/assets/logo.svg) [Pocket-note](pocketnote.netlify.app)
+# ![](./src/assets/logo.svg) [Pocket-note](pocketnote.netlify.app)
 
 
 > 🧑‍🚀 **Pocket note?** is a new app that allows you to take notes and store them in your pocket 😅(i mean your phone) . 
