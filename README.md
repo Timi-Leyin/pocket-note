@@ -32,12 +32,13 @@ Inside of your the project, you'll see the following folders and files:
 ```
 ## 🧑‍🚀 Roadmap
     - fix: Sanitize html inputs []
-    - fix: new note
-    - feat: redirect to note edit url when user newly save a note
-    - feat: shared notes
-    - feat: delete note
-    - fix: responsiveness
-    - style: progress loader
+    - fix: new note [X]
+    - feat: redirect to note edit url when user newly save a note [X]
+    - fix: changing title name when in read-only []
+    - feat: shared notes []
+    - feat: delete note []
+    - fix: responsiveness []
+    - style: progress loader []
 
 
 
