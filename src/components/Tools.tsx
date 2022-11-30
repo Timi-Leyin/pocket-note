@@ -13,15 +13,16 @@ import {
 } from "iconsax-react";
 import { Action } from "../interfaces";
 import { currentUser } from "@/actions/user";
+import { useNavigate } from "react-router-dom";
 
 const current = await currentUser()
 console.log(current)
-const Tools = ({ onSave,updated,action }: { onSave: () => any, updated:string,action:Action }) => {
+const Tools = ({ onSave,updated,action,id, uuid, title }: { onSave: () => any, updated:string,action:Action,id:number, uuid:string; title:string }) => {
   const [state, setState] = useState<{
     loading?: boolean;
     error?: boolean;
   }>({});
-  console.log(action)
+  const navigate = useNavigate()
   return (
     <div>
       <header className="bg-gray-800 py-2 items-center px-10 flex justify-between">
@@ -76,11 +77,13 @@ const Tools = ({ onSave,updated,action }: { onSave: () => any, updated:string,ac
             onClick={async () => {
               setState({ loading: true, error: false });
            const res = !state.loading &&  await onSave();
+           console.log(res)
               if (typeof res[0] == null) setState({ loading: false, error: true });
               if (typeof res[1] == null) setState({ loading: false, error: false });
-              setState({...state, loading:false})
-              // console.clear();
-              console.log(res)
+              setState({...state, loading:false});
+             (!state.error && !state.loading && action=="new" ) && window.location.replace(`/notes/${title}=${uuid}=id=${id}`)
+            console.log(window.history);
+            //  (!state.error && !state.loading && action=="new" ) && window.history.replaceState({}, "",`/notes/${title}=${uuid}=id=${id}`)
             }}
           >
             {state.loading ? "Saving...": !state.error

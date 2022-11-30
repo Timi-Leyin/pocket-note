@@ -52,10 +52,13 @@ const Editor = () => {
   useEffect(() => {
     if (action === "read" && param_arr && mine.data && shared.data) {
       const myN = mine.data.filter(
-        (n: NoteProps) => n.id == Number(param_arr[3]) && n.uuid == param_arr[1]
+        (n: NoteProps) => n.uuid == param_arr[1]
       );
+      // const sharedN = shared.data.filter(
+      //   (n: NoteProps) => n.id == Number(param_arr[3]) || n.uuid == param_arr[1]
+      // );
       const sharedN = shared.data.filter(
-        (n: NoteProps) => n.id == Number(param_arr[3]) && n.uuid == param_arr[1]
+        (n: NoteProps) => n.uuid == param_arr[1]
       );
       const availableNote = [...myN, ...sharedN];
       setCurrentNote(availableNote[0]);
@@ -98,18 +101,25 @@ const Editor = () => {
       <div className="bg-gray-900 px-8">
         <Header
           isEditable={true}
+          uuid={action == "new"?_id:param_arr && param_arr[1] || ""}
+          id={currentNote?.id || 0}
           title={action == "read" ? param_arr && param_arr[0] : title}
-          onTitleChange={(e) => setTitle(e.target.value)}
+          onTitleChange={(e) => {
+            console.log("Changing ", e.target.value)
+            setTitle(e.target.value);
+            // window.history.replaceState({}, "",`/notes/${e.target.value}=${uuid}=id=${id}`)
+          }}
           action={action}
         />
       </div>
-      <Tools onSave={onSave} updated={last_updated} action={action} />
+      <Tools onSave={onSave} id={0} uuid={_id} title={title} updated={last_updated} action={action} />
       <div className="editor-wrapper">
         <div className="text-editor px-12 py-6">
           {isLoading ? (
             <Loading />
           ) : action == "new" ? (
-            <span ref={note_editor} contentEditable={true}>
+            <span ref={note_editor} suppressContentEditableWarning
+            contentEditable={true}>
               Edit this Page
             </span>
           ) : (
@@ -122,6 +132,7 @@ const Editor = () => {
               dangerouslySetInnerHTML={{
                 __html: atob(currentNote?.note as string),
               }}
+              suppressContentEditableWarning
               contentEditable={action != "read" ? true : false}
             ></span>
           ):<span>Failed to load note</span>}

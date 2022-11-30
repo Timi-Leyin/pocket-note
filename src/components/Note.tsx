@@ -1,14 +1,16 @@
-import { Edit } from "iconsax-react";
+import { Edit, Eye, Trash } from "iconsax-react";
 import { NoteProps } from "@/interfaces/index";
 import { date } from "@/utils/index";
 import { Link } from "react-router-dom";
+import { supabase } from "../supabase";
+import { currentUser } from "@/actions/user";
 
+const current = await currentUser()
 const Note = ({ data }:{data:NoteProps}) => {
   // console.log(data)
   const element= document.createElement("p")
     element.innerHTML=atob(data.note)
   return (
-    <Link to={`/notes/${data.title}=${data.uuid}=id=${data.id}`}>
     <button className="note outline-none relative max-w-[300px] h-[300px] text-left p-1 rounded-lg bg-gradient-accent text-black">
       <div className="bg-pink-500 p-5 h-full rounded-[inherit] flex flex-col justify-between ">
         <div className="content-highlight font-bold pt-2 text-xl">
@@ -23,13 +25,26 @@ const Note = ({ data }:{data:NoteProps}) => {
             <span>{date(data.created_at)}</span>
             {/* October 16, 2022 */}
           </p>
-          <div className="w-[50px] flex-center text-black cursor-pointer  h-[50px] rounded-full bg-white">
-            <Edit size="20px" />
+      <Link to={`/notes/${data.title}=${data.uuid}=id=${data.id}`}>
+          <div className="w-[30px] mx-2 gap-2 flex-center text-black cursor-pointer  h-[30px] rounded-full bg-white">
+            {current[1] && current[1].id == data.user_id ? <Edit size="13px" /> : <Eye size="13px"/>}
           </div>
+          </Link>
+          {
+            (current[1] && current[1].id ) == data.user_id && (
+              <div className="w-[30px] mx-2 flex-center text-black cursor-pointer  h-[30px] rounded-full bg-red-500" onClick={async()=>{
+                const response = await supabase.from("notes").delete().eq("uuid",data.uuid)
+                console.log(response)
+            if(!response.error) window.location.reload()
+             }}>
+               <Trash size="13px" />
+             </div>
+            )
+          }
+         
         </div>
       </div>
     </button>
-    </Link>
   );
 };
 export default Note;

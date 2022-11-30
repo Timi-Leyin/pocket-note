@@ -10,6 +10,7 @@ export const getMyNotes = async ():Promise<[any, any[]]> =>{
 }
 
 
+
 export const getSharedNotes = async ():Promise<[any, any[]]> =>{
     // fix: null readings
 let { data: notes, error } =  await supabase.from("notes").select("*").contains("shared", current[1] && [current[1].email] || "")

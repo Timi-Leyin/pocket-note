@@ -6,7 +6,7 @@ import { useLoader } from "@/hooks/index";
 import { currentUser } from "@/actions/user";
 import Loading from "./Loading";
 
-const Header = ({ title, onTitleChange,action, isEditable }: HeaderProps) => {
+const Header = ({ title, onTitleChange,action,uuid, id, isEditable }: HeaderProps) => {
   const { loading, data } = useLoader(currentUser());
   const user = data?.user_metadata
   // console.log(user)
@@ -17,7 +17,12 @@ const Header = ({ title, onTitleChange,action, isEditable }: HeaderProps) => {
       { isEditable && (
         <div className="font-bold text-xl flex-center gap-1">
         <TicketDiscount />
-      <input type="text" className="opacity-50 bg-transparent outline-none border-none p-1 focus:opacity-100" placeholder="Untitled" onChange={onTitleChange} value={title} disabled={action === "read"} />
+      <input type="text" className="opacity-50 bg-transparent outline-none border-none p-1 focus:opacity-100" placeholder="Untitled" onChange={(e:any)=>{
+      if(onTitleChange){
+        onTitleChange(e)
+       action != "new" ?( window.history.replaceState({}, "",`/notes/${e.target.value}=${uuid}=id=${id}`)): window.history.replaceState({}, "",`/notes/${e.target.value}`)
+      }
+      }} value={title} disabled={action === "read"} />
           </div>
        )}
 

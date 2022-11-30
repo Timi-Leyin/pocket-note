@@ -3,16 +3,28 @@ import { getMyNotes, getSharedNotes } from "@/actions/notes";
 import {useLoader} from "@/hooks/index";
 import {CloudRemove} from "iconsax-react"
 import Loading from '@/components/Loading'
-import { Key } from "react";
+import { Key, useEffect } from "react";
 import { NoteProps } from "@/interfaces/index";
+import { supabase } from "../supabase";
 
 const Notes = () => {
   const {loading, error, data} = useLoader(getMyNotes())
   const shared = useLoader(getSharedNotes())
+  useEffect(()=>{
+    supabase
+  .channel('*')
+  .on('postgres_changes', { event: '*', schema: '*' }, payload => {
+    console.log('Change received!', payload)
+  })
+  .subscribe((status)=>{
+    console.log(status)
+  })
+  },[])
   return (
     <section className="py-6">
       <h1 className="text-4xl font-bold my-2">My Notes</h1>
       <div className="notes flex gap-3 flex-wrap my-8">
+        
         {loading && (
           <Loading />
         )}
