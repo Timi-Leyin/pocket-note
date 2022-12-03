@@ -6,18 +6,18 @@ const month = [
   "May",
   "June",
   "July",
-  "Auguest",
+  "August",
   "September",
   "October",
   "November",
   "December",
 ];
 
-export default (str:string)=>{
-  const date =  new Date(str)
- const mm = month[date.getMonth()+1]
- const dd = date.getUTCDate()
- const yy = date.getFullYear()
+export default (str: string) => {
+  const date = new Date(str);
+  const mm = month[date.getMonth()];
+  const dd = date.getUTCDate();
+  const yy = date.getFullYear();
 
- return `${mm} ${dd}, ${yy}`
-}
+  return `${mm} ${dd}, ${yy}`;
+};
