@@ -1,17 +1,23 @@
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 :root {
-    --accent: 124, 58, 237;
-    --font: 'Georama';
-    --accent-gradient: linear-gradient(45deg, rgb(var(--accent)), #da6262 30%, rgb(78, 214, 60) 60%);
+  --accent: 124, 58, 237;
+  --font: "Georama";
+  --accent-gradient: linear-gradient(
+    45deg,
+    rgb(var(--accent)),
+    #da6262 30%,
+    rgb(78, 214, 60) 60%
+  );
 }
 
 html {
-    font-family:"Manrope", var(--font), sans-serif !important;
-    scroll-behaviour: smooth
+  font-family: "Manrope", var(--font), sans-serif !important;
+  scroll-behaviour: smooth;
 }
 
 /** TAILWIND **/
@@ -19,31 +25,32 @@ html {
 @tailwind components;
 @tailwind utilities;
 @layer components {
-    [contenteditable="true"] {
-        border: none;
-        outline: none;
-        @apply p-1
-    }
+  [contenteditable="true"] {
+    border: none;
+    outline: none;
+    @apply p-1;
+  }
 
-    .editor-tools button {
-        @apply p-1 w-[40px] h-[40px] flex-center rounded-lg transition-all
-    }
+  .editor-tools button {
+    @apply p-1 w-[40px] h-[40px] flex-center rounded-lg transition-all;
+  }
 
-    .editor-tools button:hover {
-        @apply bg-gray-900
-    }
+  .editor-tools button:hover {
+    @apply bg-gray-900;
+  }
 }
+
 @layer utilities {
-.flex-center {
-        @apply flex justify-center items-center
-    }
-.bg-gradient-accent {
+  .flex-center {
+    @apply flex justify-center items-center;
+  }
+  .bg-gradient-accent {
     background: var(--accent-gradient) no-repeat;
     transition: 0.5s ease;
-    background-position: -500px
-}
+    background-position: -500px;
+  }
 
-.bg-gradient-accent:is(:hover, :focus) {
-    background-position: 0
-}
+  .bg-gradient-accent:is(:hover, :focus) {
+    background-position: 0;
+  }
 }

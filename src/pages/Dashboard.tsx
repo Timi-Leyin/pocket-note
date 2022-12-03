@@ -4,13 +4,18 @@ import Sidebar from "@/components/Sidebar";
 
 const Dashboard = () => {
   return (
-    <section className="flex">
-      <Sidebar />
-      <div className="relative flex-1 px-8 ">
-        <Header />
-        <Notes />
-      </div>
-    </section>
+    <>
+      <Header />
+      <section className="flex pt-5rem">
+        {/*
+        <Sidebar />
+        I took everything here to the Notes Files: Line 29-33;
+        */}
+        <div className="relative flex-1 px-15 ">
+          <Notes />
+        </div>
+      </section>
+    </>
   );
 };
 export default Dashboard;
