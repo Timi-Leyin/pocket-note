@@ -8,6 +8,7 @@ export type Action = "edit" | "new" | "read"
 export interface SaveProps {
   title:string;
   type?: "html";
+  shared:string[];
   action:Action;
   uuid:string;
   user_id?:string;

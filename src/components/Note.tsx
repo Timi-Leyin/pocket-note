@@ -4,9 +4,12 @@ import { date } from "@/utils/index";
 import { Link } from "react-router-dom";
 import { supabase } from "../supabase";
 import { currentUser } from "@/actions/user";
+import { useState } from "react";
+import Loading from "./Loading";
 
 const current = await currentUser()
 const Note = ({ data }:{data:NoteProps}) => {
+  const [isLoading, setIsLoading] = useState(false)
   // console.log(data)
   const element= document.createElement("p")
     element.innerHTML=atob(data.note)
@@ -33,11 +36,12 @@ const Note = ({ data }:{data:NoteProps}) => {
           {
             (current[1] && current[1].id ) == data.user_id && (
               <div className="w-[30px] mx-2 flex-center text-black cursor-pointer  h-[30px] rounded-full bg-red-500" onClick={async()=>{
+                setIsLoading(true)
                 const response = await supabase.from("notes").delete().eq("uuid",data.uuid)
-                console.log(response)
+                // console.log(response)
             if(!response.error) window.location.reload()
              }}>
-               <Trash size="13px" />
+              {isLoading ? <Loading /> : <Trash size="13px" />} 
              </div>
             )
           }

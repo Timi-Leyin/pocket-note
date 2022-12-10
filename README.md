@@ -34,9 +34,12 @@ Inside of your the project, you'll see the following folders and files:
     - fix: Sanitize html inputs []
     - fix: new note [X]
     - feat: redirect to note edit url when user newly save a note [X]
-    - fix: changing title name when in read-only []
-    - feat: shared notes []
-    - feat: delete note []
+    - fix: changing title name when in read-only [x]
+    - feat: add loading indicator when deleting []
+    - feat: shared notes [x]
+    - feat: remove email from shared note []
+    - feat: indicate readonly file [x]
+    - feat: delete note [x]
     - fix: responsiveness []
     - style: progress loader []
 
@@ -57,4 +60,4 @@ All commands are run from the root of the project, from a terminal:
 
 ## 👀 Want to learn more?
 
-Feel free to contribute [Contribution guide](https://) or view on [Openfork](https://).
+Feel free to contribute [Contribution guide](https://) or view on [Openfork](https://openfork.dev/Timi-Leyin/pocket-note).

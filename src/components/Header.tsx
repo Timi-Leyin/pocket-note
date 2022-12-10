@@ -20,15 +20,17 @@ const Header = ({
   // console.log(user)
 
   return (
-    <header className="w-full h:max-content top-0 left-0 p-3 z-10">
+    <header className="w-full h:max-content top-0 left-0 p-5 z-10">
       <div className="container flex flex-wrap items-center justify-between mx-auto">
         {/* Logo */}
+<div className="flex gap-6">
+  
         <Logo />
-
         {/* Search Bar */}
+          <Search />
+</div>
 
         <div className="hidden md:block md-w:auto">
-          <Search />
           {isEditable && (
             <div className="font-bold text-xl flex-center gap-1">
               <TicketDiscount />
@@ -75,7 +77,7 @@ const Header = ({
           ) : (
             // show sign in button if loading = false && there is no current logged user
             <button
-              className="p-6 bg-red-500 px-7 rounded-full gap-3 flex-center text-xs"
+              className="p-3 bg-red-500 px-7 rounded-full gap-3 flex-center text-xs"
               onClick={() => signin()}
             >
               Sign in <Google variant="Bold" size="16px" />

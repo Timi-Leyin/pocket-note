@@ -25,24 +25,27 @@ const Editor = () => {
   const note_editor = useRef<HTMLDivElement>(null!);
   const [isLoading, setIsLoading] = useState(true);
   const [last_updated, setlastUpdated] = useState("");
+  const [collabs, setCollabs] = useState(Array.from(new Set([""])));
   const [action, setAction] = useState<Action>("read");
   const [currentNote, setCurrentNote] = useState<NoteProps>();
   const param_arr = id?.split("=");
   const [title, setTitle] = useState((param_arr && param_arr[0]) || mock_title);
   console.log(param_arr);
-  const onSaveDraft = () => {
-    return saveDraft({
-      uuid: _id,
-      title,
-      action,
-      ref: note_editor,
-    });
-  };
+  // const onSaveDraft = () => {
+  //   return saveDraft({
+  //     uuid: _id,
+  //     title,
+  //     shared:collabs,
+  //     action,
+  //     ref: note_editor,
+  //   });
+  // };
 
   const onSave = (): any => {
     return save({
       title: title || mock_title,
       action,
+      shared:collabs,
       ref: note_editor,
       uuid: action !== "new" ? (param_arr && param_arr[1]) || "" : _id,
       user_id: (current[1] && current[1].id) || "",
@@ -93,7 +96,10 @@ const Editor = () => {
       currentNote && setlastUpdated(date(currentNote.updated_at));
       setIsLoading(false);
     }
+  currentNote && setCollabs(Array.from(new Set(currentNote.shared || [])))
   }, [currentNote,action]);
+  
+
 
   // save draft
   return (
@@ -113,20 +119,42 @@ const Editor = () => {
         />
       </div>
       <Tools onSave={onSave} id={0} uuid={_id} title={title} updated={last_updated} action={action} />
+      {
+        action !== "read" && (
+           <div className="p-1">
+      <div className="text-xs mt-2">
+      { collabs.map((email, i)=> <span className="mr-2 p-2 bg-gray-700 rounded-md inline-block" key={i}>{email}</span>)}
+        </div> 
+         <input type="email" placeholder="Share Note with: @email" onKeyDown={async (e:any)=>{
+            if(e.which === 13 && e.target.value.length > 5 ){ 
+              setCollabs(Array.from(new Set([...collabs,e.target.value]))) 
+              e.target.value = ""
+            const saveC = await  onSave()
+            console.log(saveC)
+            }
+           
+         }} className="p-2 bg-transparent text-xs outline-none"/>
+      </div>
+        )
+      }
       <div className="editor-wrapper">
-        <div className="text-editor px-12 py-6">
-          {isLoading ? (
-            <Loading />
-          ) : action == "new" ? (
-            <span ref={note_editor} suppressContentEditableWarning
-            contentEditable={true}>
-              Edit this Page
-            </span>
-          ) : (
-            ""
-          )}
+        <div className="text-editor px-2 py-2">
+          {isLoading ? <Loading /> : currentNote ?
+                                     <span ref={note_editor}  dangerouslySetInnerHTML={{
+                                        __html: atob(currentNote?.note as string),
+                                      }} suppressContentEditableWarning
+                                      contentEditable={action != "read"}></span>
+                                          : !isLoading && action === "new" ?  <span ref={note_editor} suppressContentEditableWarning contentEditable={true}>Edit this Page</span> : "Failed to GET Note" 
+          }
+          {/* {isLoading ? <Loading /> : action != "read" && currentNote ?
+                                     <span ref={note_editor}  dangerouslySetInnerHTML={{
+                                        __html: atob(currentNote?.note as string),
+                                      }} suppressContentEditableWarning
+                                      contentEditable={true}> </span>
+                                          : !currentNote?"Failed to GET Note"  :  <span ref={note_editor}></span>
+          } */}
 
-          {currentNote && action != "new" && !isLoading ? (
+          {/* {currentNote && action != "new" && !isLoading ? (
             <span
               ref={note_editor}
               dangerouslySetInnerHTML={{
@@ -135,7 +163,7 @@ const Editor = () => {
               suppressContentEditableWarning
               contentEditable={action != "read" ? true : false}
             ></span>
-          ):<span>Failed to load note</span>}
+          ):<span>Failed to load note</span>} */}
         </div>
       </div>
       <div className="editor-footer"></div>

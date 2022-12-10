@@ -8,7 +8,7 @@ import {
   Notepad,
   TextalignLeft,
   TextalignCenter,
-  TextalignJustifycenter,
+  Eye,
   NoteText,
 } from "iconsax-react";
 import { Action } from "../interfaces";
@@ -26,10 +26,19 @@ const Tools = ({ onSave,updated,action,id, uuid, title }: { onSave: () => any, u
   return (
     <div>
       <header className="bg-gray-800 py-2 items-center px-10 flex justify-between">
-        <div className="w-[300px]">
+      {
+        action == "read"?(
+          <div className="flex gap-2 items-center">
+            <Eye />
+            <p>Read-only</p>
+          </div>
+        ):(
+          <div className="w-[300px]">
           <span contentEditable="true">Georama</span>
           <span contentEditable="true">6px</span>
         </div>
+        )
+      }
         {
           action != "read" && (
             <div className="flex gap-3 editor-tools">

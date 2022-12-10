@@ -24,13 +24,15 @@ const Notes = () => {
       });
   }, []);
   return (
-    <section className="container p-4 pt-16">
-      <h1 className="text-4xl font-bold">My Notes</h1>
+    <section className="container px-5">
+     <div className="flex justify-between items-center">
+     <h1 className="text-4xl font-bold">My Notes</h1>
       <Link to="/notes/new">
-        <button className="p-2 my-3 rounded-full bg-white text-black w-[50px] h-[50px] flex-center">
+        <button className="p-2 rounded-full bg-white text-black w-[50px] h-[50px] flex-center">
           <Add />
         </button>
       </Link>
+     </div>
       <div className="notes flex gap-3 flex-wrap my-8">
         {loading && <Loading />}
         {data &&
