@@ -6,12 +6,12 @@ const Dashboard = () => {
   return (
     <>
       <Header />
-      <section className="flex pt-5rem">
+      <section className="flex py-[5rem]">
         {/*
         <Sidebar />
         I took everything here to the Notes Files: Line 29-33;
         */}
-        <div className="relative flex-1 px-15 ">
+        <div className="relative">
           <Notes />
         </div>
       </section>

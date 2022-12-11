@@ -41,7 +41,7 @@ const Notes = () => {
         </div>
       )}
       <h2 className="text-4xl font-bold my-5">Shared Notes</h2>
-      <div className="notes justify-center  flex gap-3 flex-wrap my-8">
+      <div className="notes my-8">
         {shared.loading ? (
           <Loading />
         ) : shared.error ? (
