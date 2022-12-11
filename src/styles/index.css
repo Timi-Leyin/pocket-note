@@ -172,6 +172,9 @@ html {
 }
 
 @layer utilities {
+	.bg-blur{
+		backdrop-filter:blur(10px)
+	}
   .flex-center {
     @apply flex justify-center items-center;
   }
