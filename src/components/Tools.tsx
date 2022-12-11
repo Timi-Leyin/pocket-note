@@ -87,12 +87,12 @@ const Tools = ({ onSave,updated,action,id, uuid, title }: { onSave: () => any, u
             onClick={async () => {
               setState({ loading: true, error: false });
            const res = !state.loading &&  await onSave();
-           console.log(res)
+          //  console.log(res)
               if (typeof res[0] == null) setState({ loading: false, error: true });
               if (typeof res[1] == null) setState({ loading: false, error: false });
               setState({...state, loading:false});
              (!state.error && !state.loading && action=="new" ) && window.location.replace(`/notes/${title}=${uuid}=id=${id}`)
-            console.log(window.history);
+            // console.log(window.history);
             //  (!state.error && !state.loading && action=="new" ) && window.history.replaceState({}, "",`/notes/${title}=${uuid}=id=${id}`)
             }}
           >

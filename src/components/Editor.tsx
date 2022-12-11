@@ -31,7 +31,7 @@ const Editor = () => {
   const [currentNote, setCurrentNote] = useState<NoteProps>();
   const param_arr = id?.split("=");
   const [title, setTitle] = useState((param_arr && param_arr[0]) || mock_title);
-  console.log(param_arr);
+  // console.log(param_arr);
   // const onSaveDraft = () => {
   //   return saveDraft({
   //     uuid: _id,
@@ -44,7 +44,7 @@ const Editor = () => {
   const { data } = useLoader(currentUser());
   const current = data
   // const user = data?.user_metadata;
-console.log(current)
+// console.log(current)
   const onSave = (): any => {
     return save({
       title: title || mock_title,
@@ -89,15 +89,15 @@ console.log(current)
     if (action === "new") {
       // new file
       setIsLoading(false)
-      console.log("NEW FILE");
+      // console.log("NEW FILE");
     }
-    console.log(action);
+    // console.log(action);
 
     if (action === "read") {
       //read file
-      console.log("READ FILE");
-      console.log(currentNote);
-      console.log(mine);
+      // console.log("READ FILE");
+      // console.log(currentNote);
+      // console.log(mine);
       currentNote && setlastUpdated(date(currentNote.updated_at));
      currentNote && setIsLoading(false);
     }
@@ -116,7 +116,7 @@ console.log(current)
           id={currentNote?.id || 0}
           title={action == "read" ? param_arr && param_arr[0] : title}
           onTitleChange={(e) => {
-            console.log("Changing ", e.target.value)
+            // console.log("Changing ", e.target.value)
             setTitle(e.target.value);
             // window.history.replaceState({}, "",`/notes/${e.target.value}=${uuid}=id=${id}`)
           }}
@@ -129,11 +129,11 @@ console.log(current)
          <div className="p-1">
     <div className="text-xs mt-2 flex">
     { collabs.map((email, i)=> <span className="mr-2 p-2 bg-gray-700 rounded-md flex-center gap-2" key={i}>{email} <span className="inline-block mx-2 text-xl font-bold cursor-pointer select-none" onClick={async()=>{
-      console.log(collabs)
+      // console.log(collabs)
       const filterCollabs = collabs.filter((_email, _i)=> _i != i )
      setCollabs(filterCollabs)
     const ss = await onSave()
-    console.log(ss)
+    // console.log(ss)
     }}>&times;</span> </span>)}
       </div> 
        <input type="email" placeholder="Share Note with: @email" onKeyDown={async (e:any)=>{
@@ -141,7 +141,7 @@ console.log(current)
             setCollabs(Array.from(new Set([...collabs,e.target.value]))) 
             e.target.value = ""
           const saveC = await  onSave()
-          console.log(saveC)
+          // console.log(saveC)
           }
          
        }} className="p-2 bg-transparent text-xs outline-none"/>

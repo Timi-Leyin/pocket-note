@@ -23,8 +23,8 @@ const Search = () => {
     const results: any[] = [];
     const query = e.target.value;
     if (notes && !isLoading) {
-      console.log("Ready to Search !!")
-      console.log(notes)
+      // console.log("Ready to Search !!")
+      // console.log(notes)
       setSearchResult([]);
       // console.log(notes)
       for (let i = 0; i < notes.length; i++) {
@@ -50,14 +50,14 @@ const Search = () => {
         }
       }
     } else {
-      console.log("Retrying...");
+      // console.log("Retrying...");
       fetchNotes();
     }
-    console.log(notes)
+    // console.log(notes)
   };
 
   const fetchNotes = async () => {
-    console.log("Fetching...");
+    // console.log("Fetching...");
     const [my_err, my] = await getMyNotes();
     const [shared_err, shared] = await getSharedNotes();
     setNotes([...my, ...shared]);
@@ -70,7 +70,7 @@ const Search = () => {
   useEffect(() => {
     fetchNotes();
     notes && setIsLoading(false);
-    notes && console.log("Done");
+    // notes && console.log("Done");
   }, [notes]);
   useEffect(() => {
     // console.log(searchRef.current)
