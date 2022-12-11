@@ -1,13 +1,12 @@
 
 import {supabase} from "@/supabase/index"
-// import { Html3 } from "iconsax-react";
 import type { SaveProps } from "../interfaces"
-// import jwt from "jsonwebtoken"
+import sanitize from "@/utils/sanitize";
+
 export const save = async({title,type="html",ref,user_id,uuid, action, shared}:SaveProps)=>{
   if(ref.current){
-    // remove script tag
-    const html =btoa(ref.current.innerHTML);
-    console.log(action, uuid)
+    // sanitize tags
+    const html =btoa(sanitize(ref.current.innerHTML));
     if(action === "edit"){
      const res = await supabase.from("notes").update({
         title,
@@ -31,15 +30,16 @@ export const save = async({title,type="html",ref,user_id,uuid, action, shared}:S
 }
 
 
+
 // draft - offline
-export const saveDraft = async({title,type="html",ref, uuid}:SaveProps)=>{
-    if(ref.current){
-        // remove script tag
-        const html =btoa(ref.current.innerHTML);
-        localStorage.setItem(uuid,JSON.stringify({
-          title,
-          type,
-          note:html
-        }))
-    }
-}
+// export const saveDraft = async({title,type="html",ref, uuid}:SaveProps)=>{
+//     if(ref.current){
+//         // remove script tag
+//         const html =btoa(ref.current.innerHTML);
+//         localStorage.setItem(uuid,JSON.stringify({
+//           title,
+//           type,
+//           note:html
+//         }))
+//     }
+// }
