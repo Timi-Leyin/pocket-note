@@ -33,7 +33,7 @@ const Search = () => {
       const filter2=title.toLowerCase().indexOf(query.toLowerCase()) 
       if(filter1 > -1){
         console.log(filter1, filter2)
-        return
+        return  
       }
       
      }
