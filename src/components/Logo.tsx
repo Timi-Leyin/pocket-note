@@ -8,7 +8,7 @@ const Logo = () => {
       <div className="p-2 bg-white rounded-full text-black">
         <Notepad2 />
       </div>{" "}
-      <span className="dark:text-white">Pocket</span>
+      <span className="dark:text-white hidden md:block">Pocket</span>
     </h2>
     </Link>
   );

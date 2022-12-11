@@ -20,23 +20,22 @@ const Header = ({
   // console.log(user)
 
   return (
-    <header className="w-full h:max-content top-0 left-0 p-5 z-10">
-      <div className="container flex flex-wrap items-center justify-between mx-auto">
+    <header className="w-full p-4 z-10">
+      <div className="container flex items-center justify-around md:justify-between mx-auto">
         {/* Logo */}
-<div className="flex gap-6">
-  
+<div className="flex-center gap-3">
         <Logo />
         {/* Search Bar */}
-          <Search />
+   <Search />
 </div>
 
-        <div className="hidden md:block md-w:auto">
+        <div className=" md:block md-w:auto">
           {isEditable && (
             <div className="font-bold text-xl flex-center gap-1">
               <TicketDiscount />
               <input
                 type="text"
-                className="opacity-50 bg-transparent outline-none border-none p-1 focus:opacity-100"
+                className="opacity-50 bg-transparent outline-none w-full border-none p-1 focus:opacity-100"
                 placeholder="Untitled..."
                 onChange={(e: any) => {
                   if (onTitleChange) {
@@ -80,7 +79,7 @@ const Header = ({
               className="p-3 bg-red-500 px-7 rounded-full gap-3 flex-center text-xs"
               onClick={() => signin()}
             >
-              Sign in <Google variant="Bold" size="16px" />
+            <span className="hidden sm:block">Sign in</span> <Google variant="Bold" size="16px" />
             </button>
           )}
         </div>

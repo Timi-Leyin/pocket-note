@@ -25,8 +25,8 @@ const Tools = ({ onSave,updated,action,id, uuid, title }: { onSave: () => any, u
   const navigate = useNavigate()
   return (
     <div>
-      <header className="bg-gray-800 py-2 items-center px-10 flex justify-between">
-      {
+      <header className="bg-gray-800 py-3 items-center px-10 flex flex-wrap justify-between">
+      {/* {
         action == "read"?(
           <div className="flex gap-2 items-center">
             <Eye />
@@ -38,10 +38,10 @@ const Tools = ({ onSave,updated,action,id, uuid, title }: { onSave: () => any, u
           <span contentEditable="true">6px</span>
         </div>
         )
-      }
+      } */}
         {
           action != "read" && (
-            <div className="flex gap-3 editor-tools">
+            <div className="flex gap-3 flex-wrap editor-tools">
           <button onClick={() => format("bold")}>
             <TextBold size="16px" />
           </button>
@@ -65,9 +65,9 @@ const Tools = ({ onSave,updated,action,id, uuid, title }: { onSave: () => any, u
             <TextalignCenter size="16px" />
           </button>
 
-          <button onClick={() => format("insertOrderedList")}>
+          {/* <button onClick={() => format("insertOrderedList")}>
             <NoteText size="16px" />
-          </button>
+          </button> */}
           {/* <button onClick={() => format("justify")}>
             <TextalignJustifycenter size="16px" />
           </button> */}

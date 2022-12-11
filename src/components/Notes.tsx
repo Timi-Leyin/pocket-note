@@ -5,7 +5,6 @@ import { CloudRemove } from "iconsax-react";
 import Loading from "@/components/Loading";
 import { Key, useEffect } from "react";
 import { NoteProps } from "@/interfaces/index";
-import { supabase } from "../supabase";
 
 import { Link } from "react-router-dom";
 import { Add } from "iconsax-react";
@@ -13,16 +12,7 @@ import { Add } from "iconsax-react";
 const Notes = () => {
   const { loading, error, data } = useLoader(getMyNotes());
   const shared = useLoader(getSharedNotes());
-  useEffect(() => {
-    supabase
-      .channel("*")
-      .on("postgres_changes", { event: "*", schema: "*" }, (payload) => {
-        console.log("Change received!", payload);
-      })
-      .subscribe((status) => {
-        console.log(status);
-      });
-  }, []);
+
   return (
     <section className="container px-5">
      <div className="flex justify-between items-center">
