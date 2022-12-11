@@ -18,10 +18,10 @@ export interface SaveProps {
 
 export interface HeaderProps {
   title?: string;
-  id:number;
-  uuid:string;
+  id?:number;
+  uuid?:string;
   isEditable?:boolean ;
-  action:Action;
+  action?:Action;
   onTitleChange?:(e:SyntheticBEvent)=> void
 }
 

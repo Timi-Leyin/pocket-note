@@ -1,4 +1,4 @@
-import { saveDraft, save } from "@/actions/save";
+import { save } from "@/actions/save";
 import { useEffect, useRef, useState } from "react";
 import Header from "./Header";
 import Tools from "./Tools";
@@ -15,7 +15,6 @@ import sanitize from "@/utils/sanitize";
 
 // ---------------------------
 const _id = uuid.v1();
-const current = await currentUser();
 // ---------------------------
 
 const Editor = () => {
@@ -42,7 +41,10 @@ const Editor = () => {
   //     ref: note_editor,
   //   });
   // };
-
+  const { data } = useLoader(currentUser());
+  const current = data
+  // const user = data?.user_metadata;
+console.log(current)
   const onSave = (): any => {
     return save({
       title: title || mock_title,
@@ -50,7 +52,7 @@ const Editor = () => {
       shared:collabs,
       ref: note_editor,
       uuid: action !== "new" ? (param_arr && param_arr[1]) || "" : _id,
-      user_id: (current[1] && current[1].id) || "",
+      user_id: (current && current.id) || "",
       // user_id:"c599e74e-40ce-41f5-9b0f-ce88e41430b6"
     });
   };
@@ -77,8 +79,8 @@ const Editor = () => {
     if (
       param_arr &&
       param_arr[3] &&
-      current[1] &&
-      current[1].id === currentNote?.user_id
+      current &&
+      current.id === currentNote?.user_id
     ) setAction("edit");
     // 0 = title
     // 1 =uuid

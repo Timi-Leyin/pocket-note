@@ -6,9 +6,11 @@ import { supabase } from "../supabase";
 import { currentUser } from "@/actions/user";
 import { useState } from "react";
 import Loading from "./Loading";
+import useLoader from "@/hooks/useLoader";
 
-const current = await currentUser()
 const Note = ({ data }:{data:NoteProps}) => {
+   const user = useLoader(currentUser());
+  const current = user.data;
   const [isLoading, setIsLoading] = useState(false)
   // console.log(data)
   const element= document.createElement("p")
@@ -30,11 +32,11 @@ const Note = ({ data }:{data:NoteProps}) => {
           </p>
       <Link to={`/notes/${data.title}=${data.uuid}=id=${data.id}`}>
           <div className="w-[30px] mx-2 gap-2 flex-center text-black cursor-pointer  h-[30px] rounded-full bg-white">
-            {current[1] && current[1].id == data.user_id ? <Edit size="13px" /> : <Eye size="13px"/>}
+            {current && current.id == data.user_id ? <Edit size="13px" /> : <Eye size="13px"/>}
           </div>
           </Link>
           {
-            (current[1] && current[1].id ) == data.user_id && (
+            (current && current.id ) == data.user_id && (
               <div className="w-[30px] mx-2 flex-center text-black cursor-pointer  h-[30px] rounded-full bg-red-500" onClick={async()=>{
                 setIsLoading(true)
                 const response = await supabase.from("notes").delete().eq("uuid",data.uuid)

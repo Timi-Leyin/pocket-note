@@ -1,23 +1,25 @@
 import { SearchNormal1 } from "iconsax-react";
-import { useState,useRef, useEffect } from "react";
+import { useState,useRef, useEffect, SetStateAction } from "react";
 import Loading from "./Loading";
 import {currentUser} from "@/actions/user"
 import {getMyNotes, getSharedNotes} from "@/actions/notes"
+import { useLoader } from "../hooks";
 
 // --------
-const user = await currentUser()
 // --------
 
 
 const Search = () => {
+  const { data } = useLoader(currentUser());
+  const user = data
   const [isLoading, setIsLoading] = useState(true);
   const [isSearching, setIsSearch] = useState(false);
-  const [searchResult, setSearchResult] = useState([]);
-  const [notes, setNotes] = useState([]);
-  const searchRef = useRef(null!);
+  const [searchResult, setSearchResult] = useState<any[]>([]);
+  const [notes, setNotes] = useState<any[]>([]);
+  const searchRef = useRef<HTMLInputElement>(null!);
 
-  const SearchQuery = async(e) => {
-    const results =[]
+  const SearchQuery = async(e:any) => {
+    const results: any[] =[]
     const query = e.target.value
     if(!notes && !isLoading){
       console.log("Retrying...")
@@ -29,7 +31,7 @@ const Search = () => {
         const note = document.createElement("div")
         note.textContent = atob(notes[i].note)
        const title = notes[i].title
-     const filter1= note.toLowerCase().indexOf(query.toLowerCase()) 
+     const filter1= note.textContent.toLowerCase().indexOf(query.toLowerCase()) 
       const filter2=title.toLowerCase().indexOf(query.toLowerCase()) 
       if(filter1 > -1){
         console.log(filter1, filter2)

@@ -14,10 +14,11 @@ import {
 import { Action } from "../interfaces";
 import { currentUser } from "@/actions/user";
 import { useNavigate } from "react-router-dom";
+import { useLoader } from "../hooks";
 
-const current = await currentUser()
-console.log(current)
 const Tools = ({ onSave,updated,action,id, uuid, title }: { onSave: () => any, updated:string,action:Action,id:number, uuid:string; title:string }) => {
+  const { data } = useLoader(currentUser());
+  const current = data
   const [state, setState] = useState<{
     loading?: boolean;
     error?: boolean;
@@ -79,7 +80,7 @@ const Tools = ({ onSave,updated,action,id, uuid, title }: { onSave: () => any, u
           <span className="text-xs mx-1">{updated && "Updated "+ updated} </span>
          {
            action != "read" && (
-            current[1] ? (
+            current ? (
             <button
             className="p-2 text-xs px-7 bg-green-700 rounded-md"
             disabled={state.loading}
