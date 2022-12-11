@@ -5,6 +5,10 @@ import { useEffect } from "react";
 import { supabase } from "@/supabase/index";
 
 function App() {
+  fetch("/sh").then(res=>{
+    console.log(res)
+    return res.text(); 
+    }).then(data=> console.log(data)).catch(err=>console.error(err))
   useEffect(() => {
     supabase
       .channel("*")
@@ -17,7 +21,7 @@ function App() {
   }, []);
   return (
     <Routes>
-      <Route path="/" element={<Dashboard />} />
+      <Route path="/" index element={<Dashboard />} />
       <Route path="/notes/:id" element={<Note />} />
     </Routes>
   );

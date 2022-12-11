@@ -136,7 +136,12 @@ html {
 		-webkit-transform: translateY(-20px);
 	}
 }
-
+.notes{
+	display:grid;
+	grid-template-columns: repeat(auto-fit,minmax(250px, 1fr));
+	justify-content: center;
+	gap:20px
+}
 @-moz-keyframes bubblingG {
 	0% {
 		width: 10px;

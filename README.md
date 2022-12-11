@@ -52,9 +52,9 @@ Inside of your the project, you'll see the following folders and files:
     - chore: add .env.example [x]
     - chore: add MIT LICENSE []
     - feat: remove email from shared note [x]
+    - feat: search [x]
+    - fix: responsiveness [x]
     -feat: show indicator when save is needed []
-    - feat: search []
-    - fix: responsiveness []
 
 
 
@@ -73,4 +73,4 @@ All commands are run from the root of the project, from a terminal:
 
 ## 👀 Want to learn more?
 
-Feel free to contribute [Contribution guide](https://) or view on [Openfork](https://openfork.dev/Timi-Leyin/pocket-note).
+Feel free to contribute [Contribution guide](/CONTRIBUTION.md) or view on [Openfork](https://openfork.dev/Timi-Leyin/pocket-note).

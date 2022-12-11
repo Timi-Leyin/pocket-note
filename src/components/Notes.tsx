@@ -23,13 +23,13 @@ const Notes = () => {
         </button>
       </Link>
      </div>
-      <div className="notes flex gap-3 flex-wrap my-8">
+      <div className="notes my-8">
         {loading && <Loading />}
         {data &&
           data.map((note: NoteProps, i: Key) => (
-            <div key={i}>
-              <Note data={note} />
-            </div>
+            // <div key={i}>
+              <Note key={i} data={note} />
+            // </div>
           ))}
       </div>
       {error && (
@@ -41,7 +41,7 @@ const Notes = () => {
         </div>
       )}
       <h2 className="text-4xl font-bold my-5">Shared Notes</h2>
-      <div className="notes flex gap-3 flex-wrap my-8">
+      <div className="notes justify-center  flex gap-3 flex-wrap my-8">
         {shared.loading ? (
           <Loading />
         ) : shared.error ? (
@@ -53,9 +53,9 @@ const Notes = () => {
           </div>
         ) : shared.data ? (
           shared.data.map((note: NoteProps, i: Key) => (
-            <div key={i}>
-              <Note data={note} />
-            </div>
+            // <div key={i}>
+              <Note key={i} data={note} />
+            // </div>
           ))
         ) : (
           <div className="">
