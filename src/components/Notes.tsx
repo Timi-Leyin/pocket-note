@@ -15,7 +15,7 @@ const Notes = () => {
 
   return (
     <section className="container px-5">
-     <div className="flex justify-between items-center">
+     <div className="flex justify-between w-full items-center">
      <h1 className="text-4xl font-bold">My Notes</h1>
       <Link to="/notes/new">
         <button className="p-2 rounded-full bg-white text-black w-[50px] h-[50px] flex-center">

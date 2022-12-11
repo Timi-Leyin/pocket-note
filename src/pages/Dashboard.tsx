@@ -6,7 +6,7 @@ const Dashboard = () => {
   return (
     <>
       <Header />
-      <section className="flex py-[5rem]">
+      <section className="flex py-1">
         {/*
         <Sidebar />
         I took everything here to the Notes Files: Line 29-33;

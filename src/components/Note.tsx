@@ -19,7 +19,7 @@ const Note = ({ data }:{data:NoteProps}) => {
     <button className="note outline-none relative w-full w-full h-[300px] text-left p-1 rounded-lg bg-gradient-accent text-black">
       <div className="bg-pink-500 p-5 h-full rounded-[inherit] flex flex-col justify-between ">
         <div className="content-highlight font-bold pt-2 text-xl">
-          <span>{`${element.textContent?.slice(0,150)} ${element?.textContent && element?.textContent.length >= 150 ? "...":""}`}</span>
+          <p className="block" style={{overflowWrap:"anywhere"}}>{`${element.textContent?.slice(0,150).trim()} ${(element?.textContent && element?.textContent.length >= 150 )? "...":""}`}</p>
           {/* {` The beginning of screenless design:
         UI jobs to be taken
         over by solution Architect.`} */}

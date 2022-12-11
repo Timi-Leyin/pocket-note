@@ -150,13 +150,13 @@ console.log(current)
     }
    
       <div className="editor-wrapper">
-        <div className="text-editor px-2 py-2">
+        <div className="text-editor px-2 py-2"  style={{overflowWrap:"anywhere"}}>
           {isLoading ? <Loading /> : currentNote && action != "new" ?
                                      <span ref={note_editor}  dangerouslySetInnerHTML={{
                                         __html:sanitize(atob(currentNote?.note as string)),
                                       }} suppressContentEditableWarning
                                       contentEditable={action != "read"}></span>
-                                          : action == "new" ?  <span ref={note_editor} suppressContentEditableWarning contentEditable={true}>Edit this Page</span> : "Failed to GET Note" 
+                                          : action == "new" ?  <span ref={note_editor}  suppressContentEditableWarning contentEditable={true}>Edit this Page</span> : "Failed to GET Note" 
           }
           {/* {isLoading ? <Loading /> : currentNote ?
                                      <span ref={note_editor}  dangerouslySetInnerHTML={{

@@ -11,7 +11,8 @@ export const save = async({title,type="html",ref,user_id,uuid, action, shared}:S
      const res = await supabase.from("notes").update({
         title,
         note:html,
-        shared
+        shared,
+        updated_at:new Date()
        }).eq("uuid",uuid)
        console.log(res)
        return [res.error,res.data] 
