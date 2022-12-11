@@ -10,6 +10,8 @@ import { useLoader } from "../hooks";
 import { Action, NoteProps } from "../interfaces";
 import { date } from "../utils";
 import Loading from "./Loading";
+import sanitize from "@/utils/sanitize";
+
 
 // ---------------------------
 const _id = uuid.v1();
@@ -84,6 +86,7 @@ const Editor = () => {
     // 3 = id -> value
     if (action === "new") {
       // new file
+      setIsLoading(false)
       console.log("NEW FILE");
     }
     console.log(action);
@@ -94,7 +97,7 @@ const Editor = () => {
       console.log(currentNote);
       console.log(mine);
       currentNote && setlastUpdated(date(currentNote.updated_at));
-      setIsLoading(false);
+     currentNote && setIsLoading(false);
     }
   currentNote && setCollabs(Array.from(new Set(currentNote.shared || [])))
   }, [currentNote,action]);
@@ -119,51 +122,48 @@ const Editor = () => {
         />
       </div>
       <Tools onSave={onSave} id={0} uuid={_id} title={title} updated={last_updated} action={action} />
-      {
-        action !== "read" && (
-           <div className="p-1">
-      <div className="text-xs mt-2">
-      { collabs.map((email, i)=> <span className="mr-2 p-2 bg-gray-700 rounded-md inline-block" key={i}>{email}</span>)}
-        </div> 
-         <input type="email" placeholder="Share Note with: @email" onKeyDown={async (e:any)=>{
-            if(e.which === 13 && e.target.value.length > 5 ){ 
-              setCollabs(Array.from(new Set([...collabs,e.target.value]))) 
-              e.target.value = ""
-            const saveC = await  onSave()
-            console.log(saveC)
-            }
-           
-         }} className="p-2 bg-transparent text-xs outline-none"/>
-      </div>
-        )
-      }
+   {
+     isLoading ? <Loading /> : action !== "read" && (
+         <div className="p-1">
+    <div className="text-xs mt-2 flex">
+    { collabs.map((email, i)=> <span className="mr-2 p-2 bg-gray-700 rounded-md flex-center gap-2" key={i}>{email} <span className="inline-block mx-2 text-xl font-bold cursor-pointer select-none" onClick={async()=>{
+      console.log(collabs)
+      const filterCollabs = collabs.filter((_email, _i)=> _i != i )
+     setCollabs(filterCollabs)
+    const ss = await onSave()
+    console.log(ss)
+    }}>&times;</span> </span>)}
+      </div> 
+       <input type="email" placeholder="Share Note with: @email" onKeyDown={async (e:any)=>{
+          if(e.which === 13 && e.target.value.length > 5 ){ 
+            setCollabs(Array.from(new Set([...collabs,e.target.value]))) 
+            e.target.value = ""
+          const saveC = await  onSave()
+          console.log(saveC)
+          }
+         
+       }} className="p-2 bg-transparent text-xs outline-none"/>
+    </div>
+      )
+    }
+   
       <div className="editor-wrapper">
         <div className="text-editor px-2 py-2">
-          {isLoading ? <Loading /> : currentNote ?
+          {isLoading ? <Loading /> : currentNote && action != "new" ?
+                                     <span ref={note_editor}  dangerouslySetInnerHTML={{
+                                        __html:sanitize(atob(currentNote?.note as string)),
+                                      }} suppressContentEditableWarning
+                                      contentEditable={action != "read"}></span>
+                                          : action == "new" ?  <span ref={note_editor} suppressContentEditableWarning contentEditable={true}>Edit this Page</span> : "Failed to GET Note" 
+          }
+          {/* {isLoading ? <Loading /> : currentNote ?
                                      <span ref={note_editor}  dangerouslySetInnerHTML={{
                                         __html: atob(currentNote?.note as string),
                                       }} suppressContentEditableWarning
                                       contentEditable={action != "read"}></span>
                                           : !isLoading && action === "new" ?  <span ref={note_editor} suppressContentEditableWarning contentEditable={true}>Edit this Page</span> : "Failed to GET Note" 
-          }
-          {/* {isLoading ? <Loading /> : action != "read" && currentNote ?
-                                     <span ref={note_editor}  dangerouslySetInnerHTML={{
-                                        __html: atob(currentNote?.note as string),
-                                      }} suppressContentEditableWarning
-                                      contentEditable={true}> </span>
-                                          : !currentNote?"Failed to GET Note"  :  <span ref={note_editor}></span>
           } */}
-
-          {/* {currentNote && action != "new" && !isLoading ? (
-            <span
-              ref={note_editor}
-              dangerouslySetInnerHTML={{
-                __html: atob(currentNote?.note as string),
-              }}
-              suppressContentEditableWarning
-              contentEditable={action != "read" ? true : false}
-            ></span>
-          ):<span>Failed to load note</span>} */}
+        
         </div>
       </div>
       <div className="editor-footer"></div>
