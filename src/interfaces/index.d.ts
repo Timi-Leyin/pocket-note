@@ -19,6 +19,7 @@ export interface SaveProps {
 export interface HeaderProps {
   title?: string;
   id?:number;
+  mock_title?:string;
   uuid?:string;
   isEditable?:boolean ;
   action?:Action;

@@ -14,6 +14,7 @@ const Header = ({
   uuid,
   id,
   isEditable,
+  mock_title
 }: HeaderProps) => {
   const { loading, data } = useLoader(currentUser());
   const user = data?.user_metadata;
@@ -38,18 +39,20 @@ const Header = ({
                 className="opacity-50 bg-transparent outline-none w-full border-none p-1 focus:opacity-100"
                 placeholder="Untitled..."
                 onChange={(e: any) => {
+                  const isMatched = (e.target.value.match(/^\s/) || e.target.value == "") ;
                   if (onTitleChange) {
                     onTitleChange(e);
+                    const url =e.target.value.split(" ").join("-").trim() 
                     action != "new"
                       ? window.history.replaceState(
                           {},
                           "",
-                          `/notes/${e.target.value}=${uuid}=id=${id}`
+                          `/notes/${isMatched ? mock_title : url}=${uuid}=id=${id}`
                         )
                       : window.history.replaceState(
                           {},
                           "",
-                          `/notes/${e.target.value}`
+                          `/notes/${isMatched ? mock_title :url}`
                         );
                   }
                 }}

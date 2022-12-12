@@ -1,5 +1,5 @@
 import { save } from "@/actions/save";
-import { useEffect, useRef, useState } from "react";
+import { BaseSyntheticEvent, useEffect, useRef, useState } from "react";
 import Header from "./Header";
 import Tools from "./Tools";
 import * as uuid from "uuid";
@@ -112,6 +112,7 @@ const Editor = () => {
       <div className="bg-gray-900 px-8">
         <Header
           isEditable={true}
+          mock_title={mock_title}
           uuid={action == "new"?_id:param_arr && param_arr[1] || ""}
           id={currentNote?.id || 0}
           title={action == "read" ? param_arr && param_arr[0] : title}
@@ -127,7 +128,7 @@ const Editor = () => {
    {
      isLoading ? <Loading /> : action !== "read" && (
          <div className="p-1">
-    <div className="text-xs mt-2 flex">
+    <div className="text-xs my-2 flex w-full overflow-auto">
     { collabs.map((email, i)=> <span className="mr-2 p-2 bg-gray-700 rounded-md flex-center gap-2" key={i}>{email} <span className="inline-block mx-2 text-xl font-bold cursor-pointer select-none" onClick={async()=>{
       // console.log(collabs)
       const filterCollabs = collabs.filter((_email, _i)=> _i != i )
@@ -136,15 +137,16 @@ const Editor = () => {
     // console.log(ss)
     }}>&times;</span> </span>)}
       </div> 
-       <input type="email" placeholder="Share Note with: @email" onKeyDown={async (e:any)=>{
-          if(e.which === 13 && e.target.value.length > 5 ){ 
-            setCollabs(Array.from(new Set([...collabs,e.target.value]))) 
-            e.target.value = ""
-          const saveC = await  onSave()
-          // console.log(saveC)
-          }
-         
-       }} className="p-2 bg-transparent text-xs outline-none"/>
+      <form onSubmit={async (e:BaseSyntheticEvent)=>{
+        e.preventDefault()
+       const value = e.target[0].value
+        setCollabs(Array.from(new Set([...collabs,value])))
+        e.target[0].value = "" 
+      const saveC = await  onSave()
+      // console.log(saveC)
+      }}>
+      <input type="email" placeholder="Share Note with: @email" className="p-2 bg-transparent text-xs outline-none"/>
+      </form>
     </div>
       )
     }
@@ -152,11 +154,11 @@ const Editor = () => {
       <div className="editor-wrapper">
         <div className="text-editor px-2 py-2"  style={{overflowWrap:"anywhere"}}>
           {isLoading ? <Loading /> : currentNote && action != "new" ?
-                                     <span ref={note_editor}  dangerouslySetInnerHTML={{
-                                        __html:sanitize(atob(currentNote?.note as string)),
+                                     <p ref={note_editor} className="w-full h-full min-h-[300px] min-w-3 bg-red-500"  dangerouslySetInnerHTML={{
+                                        __html:sanitize(atob(currentNote?.note as string || "") || ""),
                                       }} suppressContentEditableWarning
-                                      contentEditable={action != "read"}></span>
-                                          : action == "new" ?  <span ref={note_editor}  suppressContentEditableWarning contentEditable={true}>Edit this Page</span> : "Failed to GET Note" 
+                                      contentEditable={action != "read"}></p>
+                                          : action == "new" ?  <p ref={note_editor}  className="w-full h-full min-h-[300px] min-w-3 " suppressContentEditableWarning contentEditable={true}>Edit this Page</p> : "Failed to GET Note" 
           }
           {/* {isLoading ? <Loading /> : currentNote ?
                                      <span ref={note_editor}  dangerouslySetInnerHTML={{

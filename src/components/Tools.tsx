@@ -26,7 +26,7 @@ const Tools = ({ onSave,updated,action,id, uuid, title }: { onSave: () => any, u
   const navigate = useNavigate()
   return (
     <div>
-      <header className="bg-gray-800 py-3 items-center px-10 flex flex-wrap justify-between">
+      <header className="bg-gray-800 py-3 items-center gap-3 px-10 flex flex-wrap justify-between">
       {/* {
         action == "read"?(
           <div className="flex gap-2 items-center">
@@ -100,7 +100,7 @@ const Tools = ({ onSave,updated,action,id, uuid, title }: { onSave: () => any, u
               ? "Note Saved" : state.error?"Failed":"Save Note"
             }
           </button>
-          ) : <span className="text-sm font-bold">Sign in to save note</span>
+          ) : <span className="text-sm font-bold py-2">Sign in to save note</span>
            )
          }
         </div>
