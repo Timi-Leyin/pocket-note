@@ -1,7 +1,7 @@
 import { HeaderProps } from "@/interfaces/index";
 import { Google, SearchNormal1, TicketDiscount } from "iconsax-react";
 import Search from "./Search";
-import { signin } from "@/actions/auth";
+import { signin, logout } from "@/actions/auth";
 import { useLoader } from "@/hooks/index";
 import { currentUser } from "@/actions/user";
 import Loading from "./Loading";
@@ -68,13 +68,14 @@ const Header = ({
           {loading ? (
             <Loading />
           ) : user ? (
-            <div className="flex gap-1">
+            <div className="flex flex-col gap-1">
               {/* show avatar if loading = false && data exists */}
               <img
                 src={user?.avatar_url}
                 className="w-[50px] h-[50px] ring-2 select-none pointer-events-none ring-gray-100 rounded-full object-cover"
                 alt={user?.full_name}
               />
+              <p className="p-1 font-bold text-lg" onClick={()=> logout()}>Logout</p>
             </div>
           ) : (
             // show sign in button if loading = false && there is no current logged user

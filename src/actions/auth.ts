@@ -7,6 +7,7 @@ export const signin = async ()=>{
         // console.log(data, error);
 }
 
-export const logout = ()=>{
-    
+export const logout = async()=>{
+  const { error } = await supabase.auth.signOut()
+  if(!error) window.location.assign("/")
 }
