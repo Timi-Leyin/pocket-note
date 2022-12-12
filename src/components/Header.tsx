@@ -27,7 +27,7 @@ const Header = ({
 <div className="flex-center gap-3">
         <Logo />
         {/* Search Bar */}
-   <Search />
+  { user && <Search />}
 </div>
 
         <div className=" md:block md-w:auto">
@@ -68,14 +68,14 @@ const Header = ({
           {loading ? (
             <Loading />
           ) : user ? (
-            <div className=" gap-1">
+            <div className=" gap-1 relative">
               {/* show avatar if loading = false && data exists */}
               <img
                 src={user?.avatar_url}
                 className="w-[50px] h-[50px] ring-2 select-none pointer-events-none ring-gray-100 rounded-full object-cover"
                 alt={user?.full_name}
               />
-              <p className="p-1 font-bold text-lg" onClick={()=> logout()}>Logout</p>
+              <p className="p-1 font-bold text-lg absolute" onClick={()=> logout()}>Logout</p>
             </div>
           ) : (
             // show sign in button if loading = false && there is no current logged user

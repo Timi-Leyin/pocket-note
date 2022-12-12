@@ -3,7 +3,7 @@ import { BaseSyntheticEvent, useEffect, useRef, useState } from "react";
 import Header from "./Header";
 import Tools from "./Tools";
 import * as uuid from "uuid";
-import { useParams } from "react-router-dom";
+import { redirect, useParams } from "react-router-dom";
 import { currentUser } from "@/actions/user";
 import { getMyNotes, getSharedNotes } from "@/actions/notes";
 import { useLoader } from "../hooks";
@@ -12,6 +12,8 @@ import { date } from "../utils";
 import Loading from "./Loading";
 import sanitize from "@/utils/sanitize";
 import { signin } from "@/actions/auth";
+import { Google } from "iconsax-react";
+import Logo from "./Logo";
 
 
 // ---------------------------
@@ -103,13 +105,13 @@ const Editor = () => {
      currentNote && setIsLoading(false);
     }
   currentNote && setCollabs(Array.from(new Set(currentNote.shared || [])))
+  if(!isLoading && !current) redirect("/")
 }, [currentNote,action]);
 
-if(!isLoading && !current) window.location.assign("/")
 
 
   // save draft
-  return isLoading ? <Loading />  : currentNote? (
+  return isLoading ? <Loading />  : current? (
     <div className="">
     <div className="bg-gray-900 px-8">
       <Header
@@ -156,7 +158,7 @@ if(!isLoading && !current) window.location.assign("/")
     <div className="editor-wrapper">
       <div className="text-editor px-2 py-2"  style={{overflowWrap:"anywhere"}}>
         {isLoading ? <Loading /> : currentNote && action != "new" ?
-                                   <p ref={note_editor} className="w-full h-full min-h-[300px] min-w-3 bg-red-500"  dangerouslySetInnerHTML={{
+                                   <p ref={note_editor} className="w-full h-full min-h-[300px] min-w-3"  dangerouslySetInnerHTML={{
                                       __html:sanitize(atob(currentNote?.note as string || "") || ""),
                                     }} suppressContentEditableWarning
                                     contentEditable={action != "read"}></p>
@@ -174,6 +176,14 @@ if(!isLoading && !current) window.location.assign("/")
     </div>
     <div className="editor-footer"></div>
   </div>
-  ) :<p className="font-bold p-4 text-xl" onClick={()=> signin()}>Sign in to Continue</p>
+  ) :  <div className="my-5">
+    <Logo />
+    <button
+  className="p-3 m-auto my-6 bg-red-500 px-7 rounded-full gap-3 flex-center text-xs"
+  onClick={() => signin()}
+>
+<span className="">Sign in to Continue</span> <Google variant="Bold" size="16px" />
+</button>
+  </div>
 };
 export default Editor;

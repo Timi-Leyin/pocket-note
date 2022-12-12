@@ -1,13 +1,14 @@
 import Note from "./Note";
 import { getMyNotes, getSharedNotes } from "@/actions/notes";
 import { useLoader } from "@/hooks/index";
-import { CloudRemove } from "iconsax-react";
+import { CloudRemove, Google } from "iconsax-react";
 import Loading from "@/components/Loading";
 import { Key, useEffect } from "react";
 import { NoteProps } from "@/interfaces/index";
 
 import { Link } from "react-router-dom";
 import { Add } from "iconsax-react";
+import { signin } from "@/actions/auth";
 
 const Notes = () => {
   const { loading, error, data } = useLoader(getMyNotes());
@@ -23,7 +24,7 @@ const Notes = () => {
         </button>
       </Link>
      </div>
-      <div className="notes my-8">
+      <div className="notes my-4">
         {loading && <Loading />}
         {data &&
           data.map((note: NoteProps, i: Key) => (
@@ -34,13 +35,19 @@ const Notes = () => {
       </div>
       {error && (
         <div className="">
-          <p className="flex items-center gap-1 opacity-70  pb-8 font-bold">
+          <p className="flex items-center gap-1 opacity-70  pb-4 font-bold">
             <CloudRemove />
             {"Notes are not available currently."}
           </p>
+          <button
+              className="p-3 bg-red-500 px-7 rounded-full gap-3 flex-center text-xs"
+              onClick={() => signin()}
+            >
+            <span className="">Sign in</span> <Google variant="Bold" size="16px" />
+            </button>
         </div>
       )}
-      <h2 className="text-4xl font-bold my-5">Shared Notes</h2>
+      <h2 className="text-4xl font-bold my-7">Shared Notes</h2>
       <div className="notes my-8">
         {shared.loading ? (
           <Loading />

@@ -30,7 +30,8 @@ const Note = ({ data }:{data:NoteProps}) => {
             <span>{date(data.created_at)}</span>
             {/* October 16, 2022 */}
           </p>
-      <Link to={`/notes/${data.title}=${data.uuid}=id=${data.id}`}>
+    <div className="flex items-center gap-3">
+    <Link to={`/notes/${data.title}=${data.uuid}=id=${data.id}`}>
           <div className="w-[30px] mx-2 gap-2 flex-center text-black cursor-pointer  h-[30px] rounded-full bg-white">
             {current && current.id == data.user_id ? <Edit size="13px" /> : <Eye size="13px"/>}
           </div>
@@ -48,6 +49,7 @@ const Note = ({ data }:{data:NoteProps}) => {
             )
           }
          
+    </div>
         </div>
       </div>
     </button>
