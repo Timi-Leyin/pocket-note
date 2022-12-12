@@ -42,7 +42,7 @@ const Tools = ({ onSave,updated,action,id, uuid, title }: { onSave: () => any, u
       } */}
         {
           action != "read" && (
-            <div className="flex gap-3 flex-wrap editor-tools">
+            <div className="flex gap-3  editor-tools">
           <button onClick={() => format("bold")}>
             <TextBold size="16px" />
           </button>

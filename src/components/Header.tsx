@@ -68,7 +68,7 @@ const Header = ({
           {loading ? (
             <Loading />
           ) : user ? (
-            <div className="flex flex-col gap-1">
+            <div className=" gap-1">
               {/* show avatar if loading = false && data exists */}
               <img
                 src={user?.avatar_url}
