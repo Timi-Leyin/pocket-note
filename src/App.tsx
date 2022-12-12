@@ -5,11 +5,7 @@ import { useEffect } from "react";
 import { supabase } from "@/supabase/index";
 
 function App() {
-  fetch("/sh").then(res=>{
-    console.log(res)
-    return res.text(); 
-    }).then(data=> console.log(data)).catch(err=>console.error(err))
-  useEffect(() => {
+   useEffect(() => {
     supabase
       .channel("*")
       .on("postgres_changes", { event: "*", schema: "*" }, (payload) => {
@@ -23,6 +19,7 @@ function App() {
     <Routes>
       <Route path="/" index element={<Dashboard />} />
       <Route path="/notes/:id" element={<Note />} />
+     <Route path="*" element={<div>404</div>} />
     </Routes>
   );
 }
