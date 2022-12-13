@@ -21,7 +21,7 @@ const Header = ({
   // console.log(user)
 
   return (
-    <header className="w-full py-4 px-1 md:mx-4 z-10">
+    <header className="py-4 px-1 md:mx-4 z-10">
       <div className="container flex items-center justify-around md:justify-between mx-auto">
         {/* Logo */}
 <div className="flex-center gap-3">
