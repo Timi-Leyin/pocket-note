@@ -6,6 +6,7 @@ import { getMyNotes, getSharedNotes } from "@/actions/notes";
 import { useLoader } from "../hooks";
 import { Link } from "react-router-dom";
 import { date } from "../utils";
+import { decrypt } from "@/utils/hash";
 
 // --------
 // --------
@@ -29,7 +30,7 @@ const Search = () => {
       // console.log(notes)
       for (let i = 0; i < notes.length; i++) {
         const note = document.createElement("div");
-        note.innerHTML = atob(notes[i].note);
+        note.innerHTML = decrypt(notes[i].note);
         // console.log(note)
         // const len = note.textContent.length
         // const title = notes[i].title;

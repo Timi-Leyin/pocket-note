@@ -14,6 +14,7 @@ import sanitize from "@/utils/sanitize";
 import { signin } from "@/actions/auth";
 import { Google } from "iconsax-react";
 import Logo from "./Logo";
+import { decrypt } from "@/utils/hash";
 
 
 // ---------------------------
@@ -44,7 +45,7 @@ const Editor = () => {
   //     ref: note_editor,
   //   });
   // };
-  const { data } = useLoader(currentUser());
+  const { data,loading } = useLoader(currentUser());
   const current = data
   // const user = data?.user_metadata;
 // console.log(current)
@@ -111,7 +112,7 @@ const Editor = () => {
 
 
   // save draft
-  return isLoading ? <Loading />  : current? (
+  return  loading ? <Loading />  : current? (
     <div className="">
     <div className="bg-gray-900 px-8">
       <Header
@@ -159,7 +160,7 @@ const Editor = () => {
       <div className="text-editor px-2 py-2"  style={{overflowWrap:"anywhere"}}>
         {isLoading ? <Loading /> : currentNote && action != "new" ?
                                    <p ref={note_editor} className="w-full h-full min-h-[300px] min-w-3"  dangerouslySetInnerHTML={{
-                                      __html:sanitize(atob(currentNote?.note as string || "") || ""),
+                                      __html:sanitize(decrypt(currentNote?.note as string || "") || ""),
                                     }} suppressContentEditableWarning
                                     contentEditable={action != "read"}></p>
                                         : action == "new" ?  <p ref={note_editor}  className="w-full h-full min-h-[300px] min-w-3 " suppressContentEditableWarning contentEditable={true}>Edit this Page</p> : "Failed to GET Note" 

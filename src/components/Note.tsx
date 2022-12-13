@@ -7,6 +7,7 @@ import { currentUser } from "@/actions/user";
 import { useState } from "react";
 import Loading from "./Loading";
 import useLoader from "@/hooks/useLoader";
+import { decrypt } from "@/utils/hash";
 
 const Note = ({ data }:{data:NoteProps}) => {
    const user = useLoader(currentUser());
@@ -14,7 +15,7 @@ const Note = ({ data }:{data:NoteProps}) => {
   const [isLoading, setIsLoading] = useState(false)
   // console.log(data)
   const element= document.createElement("p")
-    element.innerHTML=atob(data.note)
+    element.innerHTML=decrypt(data.note)
   return (
     <button className="note outline-none relative w-full w-full h-[300px] text-left p-1 rounded-lg bg-gradient-accent text-black">
       <div className="bg-pink-500 p-5 h-full rounded-[inherit] flex flex-col justify-between ">

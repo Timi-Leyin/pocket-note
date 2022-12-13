@@ -2,11 +2,12 @@
 import {supabase} from "@/supabase/index"
 import type { SaveProps } from "../interfaces"
 import sanitize from "@/utils/sanitize";
+import { encrypt } from "@/utils/hash";
 
 export const save = async({title,type="html",ref,user_id,uuid, action, shared}:SaveProps)=>{
   if(ref.current){
     // sanitize tags
-    const html =btoa(sanitize(ref.current.innerHTML));
+    const html =encrypt(sanitize(ref.current.innerHTML));
     if(action === "edit"){
      const res = await supabase.from("notes").update({
         title,
