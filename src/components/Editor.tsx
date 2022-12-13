@@ -30,7 +30,7 @@ const Editor = () => {
   const note_editor = useRef<HTMLDivElement>(null!);
   const [isLoading, setIsLoading] = useState(true);
   const [last_updated, setlastUpdated] = useState("");
-  const [collabs, setCollabs] = useState(Array.from(new Set([""])));
+  const [collabs, setCollabs] = useState<Array<string>>(Array.from(new Set()));
   const [action, setAction] = useState<Action>("read");
   const [currentNote, setCurrentNote] = useState<NoteProps>();
   const param_arr = id?.split("=");
@@ -157,7 +157,7 @@ const Editor = () => {
   }
  
     <div className="editor-wrapper">
-      <div className="text-editor px-2 py-2"  style={{overflowWrap:"anywhere"}}>
+      <div className="text-editor px-4 py-2"  style={{overflowWrap:"anywhere"}}>
         {isLoading ? <Loading /> : currentNote && action != "new" ?
                                    <p ref={note_editor} className="w-full h-full min-h-[300px] min-w-3"  dangerouslySetInnerHTML={{
                                       __html:sanitize(decrypt(currentNote?.note as string || "") || ""),
