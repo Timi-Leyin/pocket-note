@@ -17,8 +17,14 @@
 
 html {
   font-family: "Manrope", var(--font), sans-serif !important;
-  scroll-behaviour: smooth;
+  scroll-behavior: smooth;
 }
+.text-editor ul{
+	list-style: circle !important;
+}	
+.text-editor ol{
+	list-style: decimal;
+}	
 
 .bubblingG {
 	text-align: center;
