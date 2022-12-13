@@ -21,7 +21,7 @@ const Header = ({
   // console.log(user)
 
   return (
-    <header className="w-full p-4 z-10">
+    <header className="w-full py-4 px-1 md:mx-4 z-10">
       <div className="container flex items-center justify-around md:justify-between mx-auto">
         {/* Logo */}
 <div className="flex-center gap-3">
@@ -30,7 +30,7 @@ const Header = ({
   { user && <Search />}
 </div>
 
-        <div className=" md:block md-w:auto">
+        <div className=" md:block mx-1 md-w:auto">
           {isEditable && (
             <div className="font-bold text-xl flex-center gap-1">
               <TicketDiscount />
@@ -75,7 +75,7 @@ const Header = ({
                 className="w-[50px] h-[50px] ring-2 select-none pointer-events-none ring-gray-100 rounded-full object-cover"
                 alt={user?.full_name}
               />
-              <p className="p-1 font-bold text-lg absolute" onClick={()=> logout()}>Logout</p>
+              <p className="p-1 font-bold text-lg absolute top-0 translate-x-[-5px] z-[1]" onClick={()=> logout()}>Logout</p>
             </div>
           ) : (
             // show sign in button if loading = false && there is no current logged user
